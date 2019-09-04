@@ -1,15 +1,15 @@
 [
 {
-  "modid": "examplemod",
-  "name": "Example Mod",
-  "description": "Example placeholder mod.",
+  "modid": "infeatures",
+  "name": "Infinite Features Mod",
+  "description": "A mod that adds a practically infinite amount of blocks, items, dimensions, and mobs with randomization!",
   "version": "${version}",
   "mcversion": "${mcversion}",
-  "url": "",
+  "url": "https://craftforever.github.io/Website/",
   "updateUrl": "",
-  "authorList": ["ExampleDude"],
-  "credits": "The Forge and FML guys, for making this example",
-  "logoFile": "",
+  "authorList": ["halotroop2288, Tapiocaphobe, TheOtherFox, LaserDiscArchive, Agnanaum... and more!"],
+  "credits": "The CraftForever team",
+  "logoFile": "InfiniteFeatures.png",
   "screenshots": [],
   "dependencies": []
 }
