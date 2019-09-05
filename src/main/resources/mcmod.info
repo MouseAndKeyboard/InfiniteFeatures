@@ -3,7 +3,7 @@
   "modid": "infeatures",
   "name": "Infinite Features Mod",
   "description": "A mod that adds a practically infinite amount of blocks, items, dimensions, and mobs with randomization!",
-  "version": "${version}",
+  "version": "0.0.1",
   "mcversion": "${mcversion}",
   "url": "https://craftforever.github.io/Website/",
   "updateUrl": "",
