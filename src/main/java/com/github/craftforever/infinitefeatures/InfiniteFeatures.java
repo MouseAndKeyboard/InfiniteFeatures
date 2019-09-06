@@ -1,11 +1,10 @@
 package com.github.craftforever.infinitefeatures;
 
 import java.io.File;
-
+import java.io.IOException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.world.WorldEvent;
@@ -15,6 +14,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 @Mod(modid = "infeatures")
 public class InfiniteFeatures
 {
+	
 	public static final String modID = "infeatures";
 	public static World world;
 	public static File saveDir;
@@ -22,16 +22,18 @@ public class InfiniteFeatures
 
 	public InfiniteFeatures()
 	{
-		MinecraftForge.EVENT_BUS.register(this);
+		MinecraftForge.EVENT_BUS.register(getClass());
 	}
-	
 	@SubscribeEvent
-	public static void onWorldLoad(WorldEvent.Load event)
+	public static void onWorldLoad(WorldEvent.Load event) throws IOException
 	{
-		world = Minecraft.getMinecraft().world;
+
+		world = event.getWorld();
 		saveDir = world.getSaveHandler().getWorldDirectory();
-		
-		final File generationFIle = new File(saveDir, "infConfig");
-		logger.info("File generated here: " + generationFIle.toPath().toString());
+		File generationFile = new File(saveDir, "infConfig");
+		if(!generationFile.exists()){
+				generationFile.createNewFile();
+			logger.info("File generated here: " + generationFile.toPath().toString());
+		}
 	}
 }
