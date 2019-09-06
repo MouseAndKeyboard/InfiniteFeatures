@@ -27,13 +27,19 @@ public class InfiniteFeatures
 	@SubscribeEvent
 	public static void onWorldLoad(WorldEvent.Load event) throws IOException
 	{
-
 		world = event.getWorld();
 		saveDir = world.getSaveHandler().getWorldDirectory();
 		File generationFile = new File(saveDir, "infConfig");
-		if(!generationFile.exists()){
-				generationFile.createNewFile();
-			logger.info("File generated here: " + generationFile.toPath().toString());
+		
+		if(!generationFile.exists())
+		{
+			generationFile.createNewFile();
+			logger.debug("File generated here: " + generationFile.toPath().toString());
 		}
+		else
+		{
+			logger.debug("File already exists: " + generationFile.toPath().toString());
+		}
+		
 	}
 }
