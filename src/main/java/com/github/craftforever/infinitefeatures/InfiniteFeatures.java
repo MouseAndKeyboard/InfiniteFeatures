@@ -134,6 +134,7 @@ public class InfiniteFeatures
 		if(shutItDown) {
 			mc.shutdown();
 		}
+		
 	}
 	public static byte[] longToByte(long l) {
 		byte[] b = new byte[] {
