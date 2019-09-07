@@ -1,7 +1,12 @@
 package com.github.craftforever.infinitefeatures;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -13,9 +18,13 @@ import com.github.craftforever.infinitefeatures.proxy.CommonProxy;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiCreateWorld;
+import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiWorldSelection;
+import net.minecraft.world.GameType;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldSettings;
+import net.minecraft.world.WorldType;
 import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
@@ -39,10 +48,23 @@ public class InfiniteFeatures
 	public static long seed;
 	public static long currentWorldSeed;
 	public static String currentWorldFolder;
+	public static String currentWorldFolderName;
 	public static GuiScreen parentscreen;
 	public static Logger logger = LogManager.getLogger();
 	public static boolean continueRandomGeneration = true;
+	public static boolean fastStart = false;
 	
+	//fast start variables
+	public static WorldSettings fastWorldSettings;
+	public static String fastWorldName;
+	public static long fastSeed;
+	public static GameType fastGameType;
+	public static boolean fastEnabledFeatures;
+	public static boolean fastHardcoreMode;
+	public static boolean fastEnableBonusChest;
+	public static boolean fastEnableCommands;
+	public static int fastWorldTypeIndex;
+	public static String fastchunkProviderSettings;
 	
 	@Instance
 	public static InfiniteFeatures instance;
@@ -68,24 +90,50 @@ public class InfiniteFeatures
 	
 	
 
-	public InfiniteFeatures()
+	public InfiniteFeatures() throws FileNotFoundException, IOException, ClassNotFoundException
 	{
+		
+		File fastStartFile = new File("InfiniCraft/fastStartFlag");
 		if (continueRandomGeneration) {
 			try {
 				currentWorldFolder = "saves/"+new String(Files.readAllBytes(Paths.get("InfiniCraft/currentworld")));
+				currentWorldFolderName = new String(Files.readAllBytes(Paths.get("InfiniCraft/currentworld")));
 			} catch (IOException e) {
 				continueRandomGeneration = false;
-				System.out.print("\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n");
 				System.out.print("NO WORLD SELECTED\n");
 			}
 		}
-		
+		if(fastStartFile.exists()&&continueRandomGeneration) {
+			ObjectInputStream in=new ObjectInputStream(new FileInputStream(fastStartFile));
+			fastStart = true;
+			fastWorldName =(String)in.readObject();
+			fastSeed =(long)in.readObject();
+			System.out.print("\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n");
+			System.out.print(fastWorldName+"\n");
+			System.out.print(fastSeed+"\n");
+			fastGameType=(GameType)in.readObject();
+			fastEnabledFeatures=(boolean)in.readObject();
+			fastHardcoreMode=(boolean)in.readObject();
+			fastEnableBonusChest=(boolean)in.readObject();
+			fastEnableCommands=(boolean)in.readObject();
+			fastWorldTypeIndex=(int)in.readObject();
+			fastchunkProviderSettings=(String)in.readObject();
+			in.close();
+			fastStartFile.delete();
+			fastWorldSettings = new WorldSettings(fastSeed, fastGameType, fastEnabledFeatures, fastHardcoreMode, WorldType.WORLD_TYPES[fastWorldTypeIndex]);
+			fastWorldSettings.setGeneratorOptions(fastchunkProviderSettings);
+			if(fastEnableBonusChest) {
+				fastWorldSettings.enableBonusChest();
+			}
+			if(fastEnableCommands) {
+				fastWorldSettings.enableCommands();
+			}
+		}
 		if (continueRandomGeneration) {
 			try {
 				currentWorldSeed = ByteToLong(Files.readAllBytes(Paths.get(currentWorldFolder+"/infConfig/infFile")));
 			} catch (IOException e) {
 				continueRandomGeneration = false;
-				System.out.print("\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n");
 				System.out.print("SELECTED WORLD DOESN'T EXIST\n");
 				System.out.print("SELECTED WORLD: "+currentWorldFolder+"/infConfig/infFile" );
 			}
@@ -93,7 +141,7 @@ public class InfiniteFeatures
 		
 		MinecraftForge.EVENT_BUS.register(getClass());
 	}
-	public static void saveInfFile(long Iseed, String saveDir, String worldName,Minecraft mc) throws IOException
+	public static void saveInfFile(long Iseed, String saveDir, String worldName, Minecraft mc, WorldSettings worldSettings, int selectedIndex,String chunkProviderSettings) throws IOException
 	{
 		boolean shutItDown = false;
 		seed = Iseed;
@@ -108,34 +156,45 @@ public class InfiniteFeatures
 			currentWorldFile.createNewFile();
 			byte[] saveBytes = saveDir.getBytes();
 			Files.write(currentWorldFile.toPath(), saveBytes);
-		}else {
-			
-			
-			String a = saveDir;
-	        String b = new String(Files.readAllBytes(currentWorldFile.toPath()));
-	        boolean isEqual = a.length() == b.length();
-	        for (int i = 0; isEqual && i < a.length(); i++) {
-	            if (b.charAt(i) != a.charAt(i)) {
-	                isEqual = false;
-	                break;
-	            }
-	        }
-			if (!isEqual) {
-				byte[] saveBytes = saveDir.getBytes();
-				Files.write(currentWorldFile.toPath(), saveBytes);
-				shutItDown = true;
-			}
 		}
 		if(!generationFile.exists()){
 			generationFile.createNewFile();
 			Files.write(generationFile.toPath(), longToByte(seed));
 			logger.info("File generated here: " + generationFile.toPath().toString()+"\n");
+			shutItDown = true;
 		}
 		if(shutItDown) {
+			File fastStartFlag = new File(infinicraftFolder,"fastStartFlag");
+			if (fastStartFlag.exists()) {
+				fastStartFlag.delete();
+			}
+			fastStartFlag.createNewFile();
+			FileOutputStream fout=new FileOutputStream(fastStartFlag.toString());
+			ObjectOutputStream out=new ObjectOutputStream(fout);
+			out.writeObject(worldName);
+			out.flush();
+			out.writeObject(worldSettings.getSeed());
+			out.flush();
+			out.writeObject(worldSettings.getGameType());
+			out.flush();
+			out.writeObject(worldSettings.isMapFeaturesEnabled());
+			out.flush();
+			out.writeObject(worldSettings.getHardcoreEnabled());
+			out.flush();
+			out.writeObject(worldSettings.isBonusChestEnabled());
+			out.flush();
+			out.writeObject(worldSettings.areCommandsAllowed());
+			out.flush();
+			out.writeObject(selectedIndex);
+			out.flush();
+			out.writeObject(chunkProviderSettings);
+			out.flush();
+			out.close();
 			mc.shutdown();
 		}
 		
 	}
+	
 	public static byte[] longToByte(long l) {
 		byte[] b = new byte[] {
 			       (byte) l,
@@ -162,6 +221,15 @@ public class InfiniteFeatures
     @SubscribeEvent
     public static void onOpenGui(GuiOpenEvent event)
     {
+    	if(event.getGui() != null && event.getGui().getClass() == GuiMainMenu.class)
+        {
+    		parentscreen = event.getGui();
+    		if(fastStart) {
+    			event.setGui(new GuiCustomCreateWorld(parentscreen));
+    			//event.getGui().mc.launchIntegratedServer(currentWorldFolderName, fastWorldName, fastWorldSettings);
+    			//event.getGui().mc.displayGuiScreen((GuiScreen)null);
+    		}
+        }
     	if(event.getGui() != null && event.getGui().getClass() == GuiWorldSelection.class)
         {
 			parentscreen = event.getGui();
