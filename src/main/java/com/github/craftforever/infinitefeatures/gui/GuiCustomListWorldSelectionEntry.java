@@ -175,6 +175,7 @@ public class GuiCustomListWorldSelectionEntry implements GuiListExtended.IGuiLis
      */
     public boolean mousePressed(int slotIndex, int mouseX, int mouseY, int mouseEvent, int relativeX, int relativeY)
     {
+    	if (!InfiniteFeatures.fastLoad) {
         this.containingListSel.selectWorld(slotIndex);
 
         if (relativeX <= 32 && relativeX < 32)
@@ -192,6 +193,9 @@ public class GuiCustomListWorldSelectionEntry implements GuiListExtended.IGuiLis
             this.lastClickTime = Minecraft.getSystemTime();
             return false;
         }
+    	}else {
+    		return false;
+    	}
     }
 
     public void joinWorld()
