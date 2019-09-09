@@ -16,6 +16,10 @@ public class ModBlocks {
 	static Random r1 = new Random(seed+1);
 	static Random r2 = new Random(seed+2);
 	static Random r3 = new Random(seed+3);
+	static Random r4 = new Random(seed+4);
+	static Random r5 = new Random(seed+5);
+	static Random r6 = new Random(seed+6);
+	static Random r7 = new Random(seed+7);
 	public static void initarray() {
 
 	}
@@ -23,6 +27,7 @@ public class ModBlocks {
 	public static final List<Block> BLOCKS = new ArrayList<Block>();
 	
 	public static final Block RANDOM_BLOCK = new RandomBlock(textpartarray[r0.nextInt(24)]+textpartarray[r1.nextInt(24)]+textpartarray[r2.nextInt(24)]+textpartarray[r3.nextInt(24)]+"_ore", Material.ROCK);
+	public static final Block RANDOM_BLOCK2 = new RandomBlock(textpartarray[r4.nextInt(24)]+textpartarray[r5.nextInt(24)]+textpartarray[r6.nextInt(24)]+textpartarray[r7.nextInt(24)]+"_ore", Material.ROCK);
 	//public static final Block RANDOM_BLOCK = new RandomBlock(textpartarray[r0.nextInt(24)]+textpartarray[r1.nextInt(24)]+textpartarray[r2.nextInt(24)]+textpartarray[r3.nextInt(24)]+"_ore", Material.ROCK);
 	
 	
