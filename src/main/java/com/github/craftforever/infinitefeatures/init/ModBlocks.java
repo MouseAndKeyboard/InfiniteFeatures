@@ -8,6 +8,7 @@ import com.github.craftforever.infinitefeatures.InfiniteFeatures;
 import com.github.craftforever.infinitefeatures.blocks.RandomBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.creativetab.CreativeTabs;
 
 public class ModBlocks {
 	public static String[] textpartarray= {"pa","pe","pi","po","pu","ta","te","ti","to","tu","ga","ge","gi","go","gu","fa","fe","fi","fo","fu","ka","ke","ki","ko","ku"};
@@ -26,9 +27,12 @@ public class ModBlocks {
 	
 	public static final List<Block> BLOCKS = new ArrayList<Block>();
 	
-	public static final Block RANDOM_BLOCK = new RandomBlock(textpartarray[r0.nextInt(24)]+textpartarray[r1.nextInt(24)]+textpartarray[r2.nextInt(24)]+textpartarray[r3.nextInt(24)]+"_ore", Material.ROCK);
-	public static final Block RANDOM_BLOCK2 = new RandomBlock(textpartarray[r4.nextInt(24)]+textpartarray[r5.nextInt(24)]+textpartarray[r6.nextInt(24)]+textpartarray[r7.nextInt(24)]+"_ore", Material.ROCK);
-	//public static final Block RANDOM_BLOCK = new RandomBlock(textpartarray[r0.nextInt(24)]+textpartarray[r1.nextInt(24)]+textpartarray[r2.nextInt(24)]+textpartarray[r3.nextInt(24)]+"_ore", Material.ROCK);
+	public static final Block RANDOM_BLOCK = new RandomBlock(textpartarray[InfiniteFeatures.getSeededRandom(1).nextInt(24)]+textpartarray[InfiniteFeatures.getSeededRandom(1).nextInt(24)]
+			+textpartarray[InfiniteFeatures.getSeededRandom(1).nextInt(24)]+textpartarray[InfiniteFeatures.getSeededRandom(1).nextInt(24)]+"_ore", Material.ROCK).setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+	public static final Block RANDOM_BLOCK2 = new RandomBlock(textpartarray[InfiniteFeatures.getSeededRandom(1).nextInt(24)]+textpartarray[InfiniteFeatures.getSeededRandom(1).nextInt(24)]
+			+textpartarray[InfiniteFeatures.getSeededRandom(1).nextInt(24)]+textpartarray[InfiniteFeatures.getSeededRandom(1).nextInt(24)]+"_ore", Material.ROCK).setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+	public static final Block RANDOM_BLOCK3 = new RandomBlock(textpartarray[InfiniteFeatures.getSeededRandom(1).nextInt(24)]+textpartarray[InfiniteFeatures.getSeededRandom(1).nextInt(24)]
+			+textpartarray[InfiniteFeatures.getSeededRandom(1).nextInt(24)]+textpartarray[InfiniteFeatures.getSeededRandom(1).nextInt(24)]+"_ore", Material.ROCK).setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
 	
 	
 	

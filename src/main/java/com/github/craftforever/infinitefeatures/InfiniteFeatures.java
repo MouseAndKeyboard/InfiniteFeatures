@@ -90,20 +90,17 @@ public class InfiniteFeatures
 	@EventHandler
 	public static void PreInit(FMLPreInitializationEvent event)
 	{
-		try {
-			RegistryHandler.generateLangFile();
+		try {RegistryHandler.generateLangFile();
 		} catch (IOException e) {}
 		
-			try {
-				RegistryHandler.generateTextures();
-			} catch (IOException e1) {
-				System.out.print("LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL\n");
-				e1.printStackTrace();
-			}
+		try {RegistryHandler.generateTextures();
+		} catch (IOException e1) {}
+		
+		try {RegistryHandler.generateModels();
+		} catch (IOException e1) {}
 		
 		
-		try {
-			ClientProxy.registerResources();
+		try {ClientProxy.registerResources();
 		} catch (NoSuchFieldException | SecurityException e) {}
 		
 	}
@@ -334,9 +331,9 @@ public class InfiniteFeatures
 			       | ((long) b[0] & 0xff);
 			return l;
 	}
-	public static Random getSeededRandom(){
+	public static Random getSeededRandom(int which){
 		randomdone++;
-		return new Random(currentWorldSeed+randomdone);
+		return new Random(currentWorldSeed+randomdone+which*10000);
 	}
     @SubscribeEvent
     public static void onOpenGui(GuiOpenEvent event)
@@ -347,8 +344,6 @@ public class InfiniteFeatures
     		if(fastStart) {
     			event.setGui(new GuiCustomCreateWorld(parentscreen));
     			parentscreen = event.getGui();
-    			//event.getGui().mc.launchIntegratedServer(currentWorldFolderName, fastWorldName, fastWorldSettings);
-    			//event.getGui().mc.displayGuiScreen((GuiScreen)null);
     		}
     		if(fastLoad) {
     			event.setGui(new GuiWorldSelection(parentscreen));
