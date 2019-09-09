@@ -67,6 +67,10 @@ public class RegistryHandler {
 		 Charset charset = Charset.forName("UTF-8");
 		 File langFolder = new File("InfiniCraft/Resources/assets/infeatures/lang");
 		 langFolder.mkdirs();
+		 File packMcmeta = new File("InfiniCraft/Resources/pack.mcmeta");
+		 if(!packMcmeta.exists()) {
+			 packMcmeta.createNewFile();
+		 }
 		 File langFile = new File("InfiniCraft/Resources/assets/infeatures/lang/en_us.lang");
 		 if (!langFile.exists()) {
 			 langFile.createNewFile();
@@ -74,6 +78,12 @@ public class RegistryHandler {
 			 langFile.delete();
 			 langFile.createNewFile();
 		 }
+		 String packInput = "{\r\n" + 
+		 		"  \"pack\": {\r\n" + 
+		 		"    \"pack_format\": 3,\r\n" + 
+		 		"    \"description\": \"0.0.2\"\r\n" + 
+		 		"  }\r\n" + 
+		 		"}";
 		 BufferedWriter writer = Files.newBufferedWriter(langFile.toPath(), charset);
 		 for(Block block : ModBlocks.BLOCKS) {
 			 String blockName = block.getTranslationKey().substring(5);
@@ -84,6 +94,11 @@ public class RegistryHandler {
 			 writer.flush();
 		 }
 		 writer.close();
+		 writer = Files.newBufferedWriter(packMcmeta.toPath(), charset);
+		 writer.write(packInput);
+		 writer.flush();
+		 writer.close();
+		 
 	 }
 	 public static void generateTextures() throws IOException {
 		 File blockTextureFolder = new File("InfiniCraft/Resources/assets/infeatures/textures/blocks");
@@ -91,16 +106,19 @@ public class RegistryHandler {
 			 FileUtils.deleteDirectory(blockTextureFolder);
 		 }
 		 blockTextureFolder.mkdirs();
+		 /*
 		 InputStream streambases = InfiniteFeatures.class.getClassLoader().getResourceAsStream("assets/infeatures/textures/block/base");
 		 BufferedReader reader = new BufferedReader(new InputStreamReader(streambases));
 		 List<String> bases = new ArrayList<String>();
 		 int baseammount = 0;
-		 while( reader.ready() ) {
+		 while(reader.ready()){
 			 baseammount ++;
 			 String line = reader.readLine();
 			 bases.add(line);
 		 }
+		 */
 		 //System.out.print(reader.readLine());
+		 /*
 		 InputStream streamores = InfiniteFeatures.class.getClassLoader().getResourceAsStream("assets/infeatures/textures/block/ore");
 		 reader = new BufferedReader(new InputStreamReader(streamores));
 		 List<String> ores = new ArrayList<String>();
@@ -109,12 +127,12 @@ public class RegistryHandler {
 			 oreammount ++;
 			 String line = reader.readLine();
 			 ores.add(line);
-			 
 		 }
+		 */
 		 for(Block block : ModBlocks.BLOCKS) {
-			 InputStream stream = InfiniteFeatures.class.getClassLoader().getResourceAsStream("assets/infeatures/textures/block/base/"+bases.get(InfiniteFeatures.getSeededRandom(2).nextInt(baseammount)));
+			 InputStream stream = InfiniteFeatures.class.getClassLoader().getResourceAsStream("assets/infeatures/textures/block/base/stone.png");
 			 BufferedImage baseImg = ImageIO.read(stream);
-			 stream = InfiniteFeatures.class.getClassLoader().getResourceAsStream("assets/infeatures/textures/block/ore/"+ores.get(InfiniteFeatures.getSeededRandom(3).nextInt(oreammount)));
+			 stream = InfiniteFeatures.class.getClassLoader().getResourceAsStream("assets/infeatures/textures/block/ore/generic.png");
 			 BufferedImage oreImg = ImageIO.read(stream);
 			 BufferedImage finalImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
 			 Graphics g = finalImg.getGraphics();
