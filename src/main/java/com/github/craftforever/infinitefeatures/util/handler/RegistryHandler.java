@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.imageio.ImageIO;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.text.WordUtils;
 
 import com.github.craftforever.infinitefeatures.InfiniteFeatures;
@@ -86,6 +87,9 @@ public class RegistryHandler {
 	 }
 	 public static void generateTextures() throws IOException {
 		 File blockTextureFolder = new File("InfiniCraft/Resources/assets/infeatures/textures/blocks");
+		 if(blockTextureFolder.exists()) {
+			 FileUtils.deleteDirectory(blockTextureFolder);
+		 }
 		 blockTextureFolder.mkdirs();
 		 InputStream streambases = InfiniteFeatures.class.getClassLoader().getResourceAsStream("assets/infeatures/textures/block/base");
 		 BufferedReader reader = new BufferedReader(new InputStreamReader(streambases));
@@ -104,7 +108,6 @@ public class RegistryHandler {
 		 while( reader.ready() ) {
 			 oreammount ++;
 			 String line = reader.readLine();
-			 System.out.print("\n\n\n"+line+"\n\n\n");
 			 ores.add(line);
 			 
 		 }
@@ -126,6 +129,15 @@ public class RegistryHandler {
 		 File blockModelFolder = new File("InfiniCraft/Resources/assets/infeatures/models/block");
 		 File itemModelFolder = new File("InfiniCraft/Resources/assets/infeatures/models/item");
 		 File blockstateFolder = new File("InfiniCraft/Resources/assets/infeatures/blockstates");
+		 if(blockModelFolder.exists()) {
+			 FileUtils.deleteDirectory(blockModelFolder);
+		 }
+		 if(itemModelFolder.exists()) {
+			 FileUtils.deleteDirectory(itemModelFolder);
+		 }
+		 if(blockstateFolder.exists()) {
+			 FileUtils.deleteDirectory(blockstateFolder);
+		 }
 		 blockModelFolder.mkdirs();
 		 itemModelFolder.mkdirs();
 		 blockstateFolder.mkdirs();
