@@ -16,8 +16,8 @@ public class RandomBlock extends BlockBase {
 		setResistance(rndom2);
 		setHarvestLevel("pickaxe", 2);
 		setLightLevel(InfiniteFeatures.getSeededRandom(1).nextFloat());
-		//setLightOpacity(1);
-		//setBlockUnbreakable();
+		setLightOpacity(1);
+		setBlockUnbreakable();
 	}
 
 }
