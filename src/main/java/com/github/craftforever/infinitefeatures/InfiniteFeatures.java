@@ -9,13 +9,16 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Random;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.github.craftforever.infinitefeatures.gui.GuiCustomCreateWorld;
 import com.github.craftforever.infinitefeatures.gui.GuiCustomWorldSelection;
+import com.github.craftforever.infinitefeatures.proxy.ClientProxy;
 import com.github.craftforever.infinitefeatures.proxy.CommonProxy;
+import com.github.craftforever.infinitefeatures.util.handler.RegistryHandler;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiCreateWorld;
@@ -72,16 +75,34 @@ public class InfiniteFeatures
 	public static String fastchunkProviderSettings;
 	public static int fastIndex;
 	
+	
+	
+	
+	public static int randomdone = 0;
+	
 	@Instance
 	public static InfiniteFeatures instance;
 	
 	@SidedProxy(clientSide = CLIENT_PROXY_CLASS, serverSide = COMMON_PROXY_CLASS)
 	public static CommonProxy proxy;
-
+	
+	
 	@EventHandler
 	public static void PreInit(FMLPreInitializationEvent event)
 	{
-
+		try {RegistryHandler.generateLangFile();
+		} catch (IOException e) {}
+		
+		try {RegistryHandler.generateTextures();
+		} catch (IOException e1) {}
+		
+		try {RegistryHandler.generateModels();
+		} catch (IOException e1) {}
+		
+		
+		try {ClientProxy.registerResources();
+		} catch (NoSuchFieldException | SecurityException e) {}
+		
 	}
 	@EventHandler
 	public static void init(FMLInitializationEvent event)
@@ -310,6 +331,10 @@ public class InfiniteFeatures
 			       | ((long) b[0] & 0xff);
 			return l;
 	}
+	public static Random getSeededRandom(int which){
+		randomdone++;
+		return new Random(currentWorldSeed+randomdone+which*10000);
+	}
     @SubscribeEvent
     public static void onOpenGui(GuiOpenEvent event)
     {
@@ -319,8 +344,6 @@ public class InfiniteFeatures
     		if(fastStart) {
     			event.setGui(new GuiCustomCreateWorld(parentscreen));
     			parentscreen = event.getGui();
-    			//event.getGui().mc.launchIntegratedServer(currentWorldFolderName, fastWorldName, fastWorldSettings);
-    			//event.getGui().mc.displayGuiScreen((GuiScreen)null);
     		}
     		if(fastLoad) {
     			event.setGui(new GuiWorldSelection(parentscreen));
@@ -339,4 +362,5 @@ public class InfiniteFeatures
             event.setGui(new GuiCustomCreateWorld(parentscreen));
         }
     }
+   
 }
