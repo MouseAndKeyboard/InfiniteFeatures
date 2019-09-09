@@ -19,11 +19,11 @@ public class ModBlocks {
 	public static final List<Block> BLOCKS = new ArrayList<Block>();
 	
 	public static final Block RANDOM_BLOCK = new RandomBlock(textpartarray[InfiniteFeatures.getSeededRandom(1).nextInt(44)]+textpartarray[InfiniteFeatures.getSeededRandom(1).nextInt(44)]
-	+textpartarray[InfiniteFeatures.getSeededRandom(1).nextInt(44)]+textpartarray[InfiniteFeatures.getSeededRandom(1).nextInt(44)]+"_ore", Material.ROCK).setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+	+textpartarray[InfiniteFeatures.getSeededRandom(1).nextInt(44)]+textpartarray[InfiniteFeatures.getSeededRandom(1).nextInt(44)]+"_ore", Material.ROCK).setCreativeTab(InfiniteFeatures.InfiniTab);
 	public static final Block RANDOM_BLOCK2 = new RandomBlock(textpartarray[InfiniteFeatures.getSeededRandom(1).nextInt(44)]+textpartarray[InfiniteFeatures.getSeededRandom(1).nextInt(44)]
-	+textpartarray[InfiniteFeatures.getSeededRandom(1).nextInt(44)]+textpartarray[InfiniteFeatures.getSeededRandom(1).nextInt(44)]+"_ore", Material.ROCK).setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+	+textpartarray[InfiniteFeatures.getSeededRandom(1).nextInt(44)]+textpartarray[InfiniteFeatures.getSeededRandom(1).nextInt(44)]+"_ore", Material.ROCK).setCreativeTab(InfiniteFeatures.InfiniTab);
 	public static final Block RANDOM_BLOCK3 = new RandomBlock(textpartarray[InfiniteFeatures.getSeededRandom(1).nextInt(44)]+textpartarray[InfiniteFeatures.getSeededRandom(1).nextInt(44)]
-	+textpartarray[InfiniteFeatures.getSeededRandom(1).nextInt(44)]+textpartarray[InfiniteFeatures.getSeededRandom(1).nextInt(44)]+"_ore", Material.ROCK).setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
+	+textpartarray[InfiniteFeatures.getSeededRandom(1).nextInt(44)]+textpartarray[InfiniteFeatures.getSeededRandom(1).nextInt(44)]+"_ore", Material.ROCK).setCreativeTab(InfiniteFeatures.InfiniTab);
 	
 	
 	

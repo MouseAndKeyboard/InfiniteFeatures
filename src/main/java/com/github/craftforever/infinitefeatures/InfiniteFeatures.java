@@ -25,6 +25,7 @@ import net.minecraft.client.gui.GuiCreateWorld;
 import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiWorldSelection;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.GameType;
@@ -75,8 +76,7 @@ public class InfiniteFeatures
 	public static String fastchunkProviderSettings;
 	public static int fastIndex;
 	
-	
-	
+	public static final CreativeTabs InfiniTab = new com.github.craftforever.infinitefeatures.items.InfiniTab("InfiniteTab");
 	
 	public static int randomdone = 0;
 	

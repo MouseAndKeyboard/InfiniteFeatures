@@ -12,6 +12,7 @@ public class ItemBase extends Item implements IHasModel{
 		setTranslationKey(name);
 		setRegistryName(name);
 		
+		
 		ModItems.ITEMS.add(this);
 	}
 	
