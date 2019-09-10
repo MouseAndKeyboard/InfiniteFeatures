@@ -15,15 +15,20 @@ public class ModBlocks {
 	public static void initarray() {
 
 	}
+	public static String name1 = textpartarray[InfiniteFeatures.getSeededRandom(1).nextInt(44)]+textpartarray[InfiniteFeatures.getSeededRandom(1).nextInt(44)]
+			+textpartarray[InfiniteFeatures.getSeededRandom(1).nextInt(44)]+textpartarray[InfiniteFeatures.getSeededRandom(1).nextInt(44)];
+	public static String name2 = textpartarray[InfiniteFeatures.getSeededRandom(1).nextInt(44)]+textpartarray[InfiniteFeatures.getSeededRandom(1).nextInt(44)]
+			+textpartarray[InfiniteFeatures.getSeededRandom(1).nextInt(44)]+textpartarray[InfiniteFeatures.getSeededRandom(1).nextInt(44)];
+	public static String name3 = textpartarray[InfiniteFeatures.getSeededRandom(1).nextInt(44)]+textpartarray[InfiniteFeatures.getSeededRandom(1).nextInt(44)]
+			+textpartarray[InfiniteFeatures.getSeededRandom(1).nextInt(44)]+textpartarray[InfiniteFeatures.getSeededRandom(1).nextInt(44)];
+	
+	
 	
 	public static final List<Block> BLOCKS = new ArrayList<Block>();
 	
-	public static final Block RANDOM_BLOCK = new RandomBlock(textpartarray[InfiniteFeatures.getSeededRandom(1).nextInt(44)]+textpartarray[InfiniteFeatures.getSeededRandom(1).nextInt(44)]
-	+textpartarray[InfiniteFeatures.getSeededRandom(1).nextInt(44)]+textpartarray[InfiniteFeatures.getSeededRandom(1).nextInt(44)]+"_ore", Material.ROCK).setCreativeTab(InfiniteFeatures.InfiniTab);
-	public static final Block RANDOM_BLOCK2 = new RandomBlock(textpartarray[InfiniteFeatures.getSeededRandom(1).nextInt(44)]+textpartarray[InfiniteFeatures.getSeededRandom(1).nextInt(44)]
-	+textpartarray[InfiniteFeatures.getSeededRandom(1).nextInt(44)]+textpartarray[InfiniteFeatures.getSeededRandom(1).nextInt(44)]+"_ore", Material.ROCK).setCreativeTab(InfiniteFeatures.InfiniTab);
-	public static final Block RANDOM_BLOCK3 = new RandomBlock(textpartarray[InfiniteFeatures.getSeededRandom(1).nextInt(44)]+textpartarray[InfiniteFeatures.getSeededRandom(1).nextInt(44)]
-	+textpartarray[InfiniteFeatures.getSeededRandom(1).nextInt(44)]+textpartarray[InfiniteFeatures.getSeededRandom(1).nextInt(44)]+"_ore", Material.ROCK).setCreativeTab(InfiniteFeatures.InfiniTab);
+	public static final Block RANDOM_BLOCK = new RandomBlock(name1+"_ore", Material.ROCK).setCreativeTab(InfiniteFeatures.InfiniTab);
+	public static final Block RANDOM_BLOCK2 = new RandomBlock(name2+"_ore", Material.ROCK).setCreativeTab(InfiniteFeatures.InfiniTab);
+	public static final Block RANDOM_BLOCK3 = new RandomBlock(name3+"_ore", Material.ROCK).setCreativeTab(InfiniteFeatures.InfiniTab);
 	
 	
 	
