@@ -18,6 +18,7 @@ import com.github.craftforever.infinitefeatures.gui.GuiCustomCreateWorld;
 import com.github.craftforever.infinitefeatures.gui.GuiCustomWorldSelection;
 import com.github.craftforever.infinitefeatures.proxy.ClientProxy;
 import com.github.craftforever.infinitefeatures.proxy.CommonProxy;
+import com.github.craftforever.infinitefeatures.util.handler.RecipeHandler;
 import com.github.craftforever.infinitefeatures.util.handler.RegistryHandler;
 
 import net.minecraft.client.Minecraft;
@@ -107,7 +108,7 @@ public class InfiniteFeatures
 	@EventHandler
 	public static void init(FMLInitializationEvent event)
 	{
-
+		RecipeHandler.createFurnaceRecipes();
 	}
 	@EventHandler
 	public static void PostInit(FMLPostInitializationEvent event)
