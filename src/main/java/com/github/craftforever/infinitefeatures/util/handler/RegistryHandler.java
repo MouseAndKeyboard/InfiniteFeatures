@@ -93,6 +93,14 @@ public class RegistryHandler {
 			 writer.write(langinput);
 			 writer.flush();
 		 }
+		 for(Item item : ModItems.ITEMS) {
+			 String itemName = item.getTranslationKey().substring(5);
+			 itemName = itemName.replace("_", " ");
+			 itemName = WordUtils.capitalize(itemName);
+			 String langinput = item.getTranslationKey()+".name="+itemName+"\n";
+			 writer.write(langinput);
+			 writer.flush();
+		 }
 		 writer.close();
 		 writer = Files.newBufferedWriter(packMcmeta.toPath(), charset);
 		 writer.write(packInput);
@@ -106,6 +114,11 @@ public class RegistryHandler {
 			 FileUtils.deleteDirectory(blockTextureFolder);
 		 }
 		 blockTextureFolder.mkdirs();
+		 File itemTextureFolder = new File("InfiniCraft/Resources/assets/infeatures/textures/items");
+		 if(itemTextureFolder.exists()) {
+			 FileUtils.deleteDirectory(itemTextureFolder);
+		 }
+		 itemTextureFolder.mkdirs();
 		 /*
 		 InputStream streambases = InfiniteFeatures.class.getClassLoader().getResourceAsStream("assets/infeatures/textures/block/base");
 		 BufferedReader reader = new BufferedReader(new InputStreamReader(streambases));
@@ -129,6 +142,7 @@ public class RegistryHandler {
 			 ores.add(line);
 		 }
 		 */
+		 //Creating Textures for the Ores and Ingots
 		 for(Block block : ModBlocks.BLOCKS) {
 			 InputStream stream = InfiniteFeatures.class.getClassLoader().getResourceAsStream("assets/infeatures/textures/block/base/stone.png");
 			 BufferedImage baseImg = ImageIO.read(stream);
@@ -137,8 +151,13 @@ public class RegistryHandler {
 			 BufferedImage finalImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
 			 Graphics g = finalImg.getGraphics();
 			 g.drawImage(baseImg, 0, 0, null);
-			 dye(oreImg,new Color(InfiniteFeatures.getSeededRandom(2).nextInt(255),InfiniteFeatures.getSeededRandom(2).nextInt(255),InfiniteFeatures.getSeededRandom(2).nextInt(255)));
+			 Color color = new Color(InfiniteFeatures.getSeededRandom(2).nextInt(255),InfiniteFeatures.getSeededRandom(2).nextInt(255),InfiniteFeatures.getSeededRandom(2).nextInt(255));
+			 dye(oreImg,color);
 			 g.drawImage(oreImg, 0, 0, null);
+			 stream = InfiniteFeatures.class.getClassLoader().getResourceAsStream("assets/infeatures/textures/item/ingot/generic.png");
+			 BufferedImage ingotImg = ImageIO.read(stream);
+			 dye(ingotImg,color);
+			 ImageIO.write(ingotImg, "PNG", new File("InfiniCraft/Resources/assets/infeatures/textures/items/"+block.getRegistryName().toString().substring(11, block.getRegistryName().toString().length()-4)+"_ingot".trim()+".png"));
 			 ImageIO.write(finalImg, "PNG", new File("InfiniCraft/Resources/assets/infeatures/textures/blocks/"+block.getTranslationKey().substring(5)+".png"));
 		 }
 	 }
@@ -159,6 +178,23 @@ public class RegistryHandler {
 		 blockModelFolder.mkdirs();
 		 itemModelFolder.mkdirs();
 		 blockstateFolder.mkdirs();
+		 for(Item item : ModItems.ITEMS) {
+			 File itemModelFile = new File("InfiniCraft/Resources/assets/infeatures/models/item/"+item.getTranslationKey().substring(5)+".json");
+			 if (!itemModelFile.exists()) {
+				 itemModelFile.createNewFile();
+			 }
+			 BufferedWriter writer = Files.newBufferedWriter(itemModelFile.toPath(), charset);
+			 String modelInput ="{\r\n" + 
+			 		"   \"parent\": \"item/generated"+"\" ,\r\n"
+			 				+ "    \"textures\": { \r\n" +
+			 				"     \"layer0\": \""+InfiniteFeatures.modID+":items/"+item.getTranslationKey().substring(5)+"\"\r\n" + 
+			 				"} \r\n" +
+			 				"}";
+			 writer.write(modelInput);
+			 writer.flush();
+			 writer.close();
+			 
+		 }
 		 for(Block block : ModBlocks.BLOCKS) {
 			 File blockModelFile = new File("InfiniCraft/Resources/assets/infeatures/models/block/"+block.getTranslationKey().substring(5)+".json");
 			 File itemModelFile = new File("InfiniCraft/Resources/assets/infeatures/models/item/"+block.getTranslationKey().substring(5)+".json");
