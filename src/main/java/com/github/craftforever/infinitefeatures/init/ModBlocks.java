@@ -7,6 +7,7 @@ import com.github.craftforever.infinitefeatures.blocks.RandomBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
 
 public class ModBlocks {
 	public static String[] textpartarray= {"pa","pe","pi","po","pu","ta","te","ti","to","tu","ga","ge","gi","go","gu","fa","fe","fi","fo","fu","ka","ke","ki","ko","ku","ha","he","hi",

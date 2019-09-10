@@ -4,11 +4,14 @@ import com.github.craftforever.infinitefeatures.InfiniteFeatures;
 import com.github.craftforever.infinitefeatures.init.IHasModel;
 import com.github.craftforever.infinitefeatures.init.ModItems;
 
+import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 
-public class ItemBase extends Item implements IHasModel{
-
-	public ItemBase(String name) {
+public class ItemIngotBase extends Item implements IHasModel{
+	
+	
+	public ItemIngotBase(String name) {
 		setTranslationKey(name);
 		setRegistryName(name);
 		
