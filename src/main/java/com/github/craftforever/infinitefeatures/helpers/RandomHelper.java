@@ -1,18 +1,30 @@
 package com.github.craftforever.infinitefeatures.helpers;
 
-import java.util.Random;
+import com.github.craftforever.infinitefeatures.InfiniteFeatures;
 
 // Class used for randomly generating numbers & values
-public class randomhelper {
-    public static int getRandomNumberInRange(int min, int max, Random random) {
+public class RandomHelper {
+    public static int getRandomIntInRange(int min, int max) {
 
         if (min >= max) {
             throw new IllegalArgumentException("max must be greater than min");
         }
-        return random.nextInt((max - min) + 1) + min;
+        return InfiniteFeatures.seededRandom.nextInt((max - min) + 1) + min;
     }
+    
+    
+    
+    public static float getRandomFloatInRange(float min, float max) {
 
-    public static double getRandomGaussianInRange(double mean, double standardDeviation, double min, double max, Random random){
+        if (min >= max) {
+            throw new IllegalArgumentException("max must be greater than min");
+        }
+        return InfiniteFeatures.seededRandom.nextFloat()*(max - min)+min;
+    }
+    
+    
+    
+    public static double getRandomGaussianInRange(double mean, double standardDeviation, double min, double max){
         if (min >= max) {
             throw new IllegalArgumentException("max must be greater than min");
         }
@@ -25,12 +37,12 @@ public class randomhelper {
 
         double randomValue = 0D;
         do {
-            randomValue = mean + random.nextGaussian() * standardDeviation;
+            randomValue = mean + InfiniteFeatures.seededRandom.nextGaussian() * standardDeviation;
 
             // ensure a legitimate value is generated
         } while (randomValue < min || randomValue > max);
-
         return randomValue;
+        
     }
 
 }
