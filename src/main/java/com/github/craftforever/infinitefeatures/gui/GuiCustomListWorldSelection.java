@@ -31,10 +31,10 @@ public class GuiCustomListWorldSelection extends GuiListExtended
     /** Index to the currently selected world */
     public int selectedIdx = -1;
 
-    public GuiCustomListWorldSelection(GuiCustomWorldSelection p_i46590_1_, Minecraft clientIn, int widthIn, int heightIn, int topIn, int bottomIn, int slotHeightIn)
+    public GuiCustomListWorldSelection(GuiCustomWorldSelection gcws, Minecraft clientIn, int widthIn, int heightIn, int topIn, int bottomIn, int slotHeightIn)
     {
         super(clientIn, widthIn, heightIn, topIn, bottomIn, slotHeightIn);
-        this.worldSelection = p_i46590_1_;
+        this.worldSelection = gcws;
         this.refreshList();
     }
 
