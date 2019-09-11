@@ -175,25 +175,28 @@ public class GuiCustomListWorldSelectionEntry implements GuiListExtended.IGuiLis
      */
     public boolean mousePressed(int slotIndex, int mouseX, int mouseY, int mouseEvent, int relativeX, int relativeY)
     {
-    	if (!InfiniteFeatures.fastLoad) {
-        this.containingListSel.selectWorld(slotIndex);
-
-        if (relativeX <= 32 && relativeX < 32)
-        {
-            this.joinWorld();
-            return true;
-        }
-        else if (Minecraft.getSystemTime() - this.lastClickTime < 250L)
-        {
-            this.joinWorld();
-            return true;
-        }
-        else
-        {
-            this.lastClickTime = Minecraft.getSystemTime();
-            return false;
-        }
-    	}else {
+    	if (!InfiniteFeatures.fastLoad)
+    	{
+	        this.containingListSel.selectWorld(slotIndex);
+	
+	        if (relativeX <= 32 && relativeX < 32)
+	        {
+	            this.joinWorld();
+	            return true;
+	        }
+	        else if (Minecraft.getSystemTime() - this.lastClickTime < 250L)
+	        {
+	            this.joinWorld();
+	            return true;
+	        }
+	        else
+	        {
+	            this.lastClickTime = Minecraft.getSystemTime();
+	            return false;
+	        }
+	    }
+    	else
+    	{
     		return false;
     	}
     }
@@ -269,13 +272,19 @@ public class GuiCustomListWorldSelectionEntry implements GuiListExtended.IGuiLis
 
         if (this.client.getSaveLoader().canLoadWorld(this.worldSummary.getFileName()))
         {
-        	try {
-        		if (!InfiniteFeatures.fastLoad) {
+        	try
+        	{
+        		if (!InfiniteFeatures.fastLoad)
+        		{
         			InfiniteFeatures.saveInfFileAtLoad(worldSummary,containingListSel.selectedIdx);
-        		}else {
+        		}
+        		else
+        		{
         			InfiniteFeatures.fastLoad = false;
         		}
-			} catch (IOException e) {
+			}
+        	catch (IOException e)
+        	{
 				e.printStackTrace();
 			}
             net.minecraftforge.fml.client.FMLClientHandler.instance().tryLoadExistingWorld(worldSelScreen, this.worldSummary);

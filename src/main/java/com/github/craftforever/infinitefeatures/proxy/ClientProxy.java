@@ -12,12 +12,12 @@ import net.minecraft.client.resources.IResourcePack;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.client.FMLClientHandler;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
-public class ClientProxy extends CommonProxy{
-	
+public class ClientProxy extends CommonProxy
+{
 	@Override
-	public void registerItemRenderer(Item item, int meta, String id) {
+	public void registerItemRenderer(Item item, int meta, String id) 
+	{
 		/*
 		try {
 			registerResources();
@@ -28,7 +28,9 @@ public class ClientProxy extends CommonProxy{
 		*/
 		ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(item.getRegistryName(), id));
 	}
-	public static void registerResources() throws NoSuchFieldException, SecurityException {
+	
+	public static void registerResources() throws NoSuchFieldException, SecurityException
+	{
 		List<IResourcePack> resourcePacks = null;
 		//replace "defaultResourcePacks" with "field_110449_ao" when you want to build it
 		//replace "defaultResourcePacks" with "field_110449_ao" when you want to build it
