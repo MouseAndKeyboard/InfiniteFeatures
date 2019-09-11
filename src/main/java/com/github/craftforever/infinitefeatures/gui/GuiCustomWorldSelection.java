@@ -72,7 +72,8 @@ public class GuiCustomWorldSelection extends GuiScreen
         this.renameButton.enabled = false;
         this.copyButton.enabled = false;
         
-        if (InfiniteFeatures.fastLoad) {
+        if (InfiniteFeatures.fastLoad)
+        {
         	//GuiCustomListWorldSelectionEntry guilistworldselectionentry = this.selectionList.getListEntry(InfiniteFeatures.fastIndex);
         	//guilistworldselectionentry.joinWorld();
         }
@@ -173,17 +174,19 @@ public class GuiCustomWorldSelection extends GuiScreen
     public void selectWorld(@Nullable GuiCustomListWorldSelectionEntry guiCustomListWorldSelectionEntry)
     {
         boolean flag = guiCustomListWorldSelectionEntry != null;
-        if(!InfiniteFeatures.fastLoad) {
+        if(!InfiniteFeatures.fastLoad)
+        {
         	this.selectButton.enabled = flag;
             this.deleteButton.enabled = flag;
             this.renameButton.enabled = flag;
             this.copyButton.enabled = flag;
-        }else {
+        }
+        else
+        {
         	this.selectButton.enabled = true;
             this.deleteButton.enabled = false;
             this.renameButton.enabled = false;
             this.copyButton.enabled = false;
         }
-        
     }
 }
