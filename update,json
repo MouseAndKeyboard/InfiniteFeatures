@@ -1,0 +1,16 @@
+{
+  "homepage": "<https://github.com/CraftForever/InfiniteFeatures/releases/>",
+  "<mcversion>": {
+    "alpha1": "added random ores that spawn in the world and can be smelted into ingots", 
+    // List all versions of your mod for the given Minecraft version, along with their changelogs
+    ...
+  },
+  ...
+  "promos": {
+    // Declare the latest "bleeding-edge" version of your mod for the given Minecraft version
+    "<mcversion>-latest": "alpha1",
+	// Declare the latest "stable" version of your mod for the given Minecraft version
+	"<mcversion>-recommended": "<modversion>",
+    ...
+  }
+}
