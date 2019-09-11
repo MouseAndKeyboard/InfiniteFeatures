@@ -18,6 +18,7 @@ import com.github.craftforever.infinitefeatures.gui.GuiCustomCreateWorld;
 import com.github.craftforever.infinitefeatures.gui.GuiCustomWorldSelection;
 import com.github.craftforever.infinitefeatures.proxy.ClientProxy;
 import com.github.craftforever.infinitefeatures.proxy.CommonProxy;
+import com.github.craftforever.infinitefeatures.util.handler.RecipeHandler;
 import com.github.craftforever.infinitefeatures.util.handler.RegistryHandler;
 
 import net.minecraft.client.Minecraft;
@@ -25,6 +26,7 @@ import net.minecraft.client.gui.GuiCreateWorld;
 import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiWorldSelection;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.GameType;
@@ -46,7 +48,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 @Mod(modid = "infeatures")
 public class InfiniteFeatures
 {
-	
+
 	public static final String modID = "infeatures";
 	public static final String CLIENT_PROXY_CLASS = "com.github.craftforever.infinitefeatures.proxy.ClientProxy";
 	public static final String COMMON_PROXY_CLASS = "com.github.craftforever.infinitefeatures.proxy.CommonProxy";
@@ -75,8 +77,7 @@ public class InfiniteFeatures
 	public static String fastchunkProviderSettings;
 	public static int fastIndex;
 	
-	
-	
+	public static final CreativeTabs InfiniTab = new com.github.craftforever.infinitefeatures.items.InfiniTab("InfiniteTab");
 	
 	public static int randomdone = 0;
 	
@@ -107,7 +108,7 @@ public class InfiniteFeatures
 	@EventHandler
 	public static void init(FMLInitializationEvent event)
 	{
-
+		RecipeHandler.createFurnaceRecipes();
 	}
 	@EventHandler
 	public static void PostInit(FMLPostInitializationEvent event)
