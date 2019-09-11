@@ -3,6 +3,8 @@ package com.github.craftforever.infinitefeatures.init;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+
 import com.github.craftforever.infinitefeatures.InfiniteFeatures;
 import com.github.craftforever.infinitefeatures.blocks.RandomBlock;
 import com.github.craftforever.infinitefeatures.util.Mineral;
