@@ -143,6 +143,7 @@ public class RegistryHandler {
 		 }
 		 */
 		 //Creating Textures for the Ores and Ingots
+		 int i = 0;
 		 for(Block block : ModBlocks.BLOCKS) {
 			 InputStream stream = InfiniteFeatures.class.getClassLoader().getResourceAsStream("assets/infeatures/textures/block/base/stone.png");
 			 BufferedImage baseImg = ImageIO.read(stream);
@@ -151,7 +152,7 @@ public class RegistryHandler {
 			 BufferedImage finalImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
 			 Graphics g = finalImg.getGraphics();
 			 g.drawImage(baseImg, 0, 0, null);
-			 Color color = new Color(InfiniteFeatures.getSeededRandom(2).nextInt(255),InfiniteFeatures.getSeededRandom(2).nextInt(255),InfiniteFeatures.getSeededRandom(2).nextInt(255));
+			 Color color = ModBlocks.minerals[i].color;
 			 dye(oreImg,color);
 			 g.drawImage(oreImg, 0, 0, null);
 			 stream = InfiniteFeatures.class.getClassLoader().getResourceAsStream("assets/infeatures/textures/item/ingot/generic.png");
@@ -159,6 +160,7 @@ public class RegistryHandler {
 			 dye(ingotImg,color);
 			 ImageIO.write(ingotImg, "PNG", new File("InfiniCraft/Resources/assets/infeatures/textures/items/"+block.getRegistryName().toString().substring(11, block.getRegistryName().toString().length()-4)+"_ingot".trim()+".png"));
 			 ImageIO.write(finalImg, "PNG", new File("InfiniCraft/Resources/assets/infeatures/textures/blocks/"+block.getTranslationKey().substring(5)+".png"));
+			 i++;
 		 }
 	 }
 	 public static void generateModels() throws IOException {

@@ -1,22 +1,36 @@
 package com.github.craftforever.infinitefeatures.blocks;
 
 import com.github.craftforever.infinitefeatures.InfiniteFeatures;
+import com.github.craftforever.infinitefeatures.init.IHasModel;
+import com.github.craftforever.infinitefeatures.init.ModBlocks;
+import com.github.craftforever.infinitefeatures.init.ModItems;
+import com.github.craftforever.infinitefeatures.util.Mineral;
 
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
+import net.minecraft.block.Block;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 
-public class RandomBlock extends BlockBase {
-	float rndom1 = (float) (0.01+ InfiniteFeatures.getSeededRandom(1).nextFloat() * (10 - 0.01));
-	float rndom2 = (float) (0.01+ InfiniteFeatures.getSeededRandom(1).nextFloat() * (10 - 0.01));
-	float rndom3 = (float) (1 + InfiniteFeatures.getSeededRandom(1).nextFloat() * (3 - 1));
+public class RandomBlock extends Block implements IHasModel{
+	public Mineral mineral;
 	
-	public RandomBlock(String name, Material material) {
-		super(name, material);
-		setSoundType(SoundType.STONE);
-		setHardness(rndom1);
-		setResistance(rndom2);
-		setHarvestLevel("pickaxe",3);
-		setLightLevel(InfiniteFeatures.getSeededRandom(1).nextFloat());
+	public RandomBlock(Mineral imineral) {
+		super(imineral.material);
+		setTranslationKey(imineral.name+"_ore");
+		setRegistryName(imineral.name+"_ore");
+		ModBlocks.BLOCKS.add(this);
+		ModItems.ITEMS.add(new ItemBlock(this).setRegistryName(this.getRegistryName()));
+		
+		setSoundType(imineral.sound);
+		setHardness(imineral.hardness);
+		setResistance(imineral.resistance);
+		setHarvestLevel(imineral.toolType,imineral.harvestLevel);
+		setLightLevel(imineral.lightlevel);
+		mineral = imineral;
+	}
+	@Override
+	public void registerModels() {
+		
+		InfiniteFeatures.proxy.registerItemRenderer(Item.getItemFromBlock(this), 0, "inventory");
 	}
 
 }
