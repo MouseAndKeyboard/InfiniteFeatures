@@ -7,8 +7,9 @@ import net.minecraft.block.material.Material;
 
 import java.awt.*;
 
-import static com.github.craftforever.infinitefeatures.helpers.randomhelper.*;
-import static com.github.craftforever.infinitefeatures.helpers.randomhelper.getRandomNumberInRange;
+import static com.github.craftforever.infinitefeatures.helpers.RandomHelper.*;
+import static com.github.craftforever.infinitefeatures.helpers.RandomHelper.getRandomIntInRange;
+
 
 public class RandomFactory {
 
@@ -27,73 +28,64 @@ public class RandomFactory {
     private static final int HARVEST_LEVEL_MIN = 0;
     private static final int HARVEST_LEVEL_MAX = 3;
 
-    public static Mineral randomMineralFactory(String[] textpartarray){
+    public static Mineral randomMineralFactory(String[] textpartarray)
+    {
 
-        String randomName =
-                  textpartarray[getRandomNumberInRange(0,textpartarray.length, InfiniteFeatures.getSeededRandom(1))]
-                + textpartarray[getRandomNumberInRange(0,textpartarray.length, InfiniteFeatures.getSeededRandom(1))]
-                + textpartarray[getRandomNumberInRange(0,textpartarray.length, InfiniteFeatures.getSeededRandom(1))]
-                + textpartarray[getRandomNumberInRange(0,textpartarray.length, InfiniteFeatures.getSeededRandom(1))];
-
+    	String randomName =
+        		textpartarray[getRandomIntInRange(0,textpartarray.length)]
+                + textpartarray[getRandomIntInRange(0,textpartarray.length)]
+                + textpartarray[getRandomIntInRange(0,textpartarray.length)]
+                + textpartarray[getRandomIntInRange(0,textpartarray.length)];
+        
         // TODO: randomly pick a material
         Material randomMaterial = Material.ROCK;
         // ...
-
-        // Not sure why we're dividing by LIGHTLEVEL_MAX, this is only necessary if the lightlevel is constrained between 0 and 1
-        // Someone with more Minecraft experience can fix this here.
-        float randomLightLevel = (float)getRandomNumberInRange(
-                LIGHTLEVEL_MIN,
-                LIGHTLEVEL_MAX,
-                InfiniteFeatures.getSeededRandom(1)) / LIGHTLEVEL_MAX;
-
+        
+        float randomLightLevel = (float)getRandomIntInRange(LIGHTLEVEL_MIN,LIGHTLEVEL_MAX) / 15;
+        
+        
         // TODO: pick tool type based off the base texture, (sand/dirt base textures probably makes sense to use a shovel)
         // Depending on the direction/extent you want to take the randomisation this could be generated randomly although that would make for poor experiences
         String randomToolType = "pickaxe";
         // ...
-
-        int randomHarvestLevel = getRandomNumberInRange(
-                HARVEST_LEVEL_MIN,
-                HARVEST_LEVEL_MAX,
-                InfiniteFeatures.getSeededRandom(1)
-        );
+        
+        int randomHarvestLevel = getRandomIntInRange(
+        		HARVEST_LEVEL_MIN,
+                HARVEST_LEVEL_MAX);
 
         // How long it takes to mine
-        float randomHardness = (float)getRandomNumberInRange(
+        float randomHardness = (float)getRandomIntInRange(
                 HARDNESS_MIN,
-                HARDNESS_MAX,
-                InfiniteFeatures.getSeededRandom(1));
+                HARDNESS_MAX);
 
         // Blast resistance
         float randomBlastResistance = (float)getRandomGaussianInRange(
-                BLAST_RESISTANCE_MEAN,
-                BLAST_RESISTANCE_STD,
-                BLAST_RESISTANCE_MIN,
-                BLAST_RESISTANCE_MAX,
-                InfiniteFeatures.getSeededRandom(1)
-        );
-
+        		BLAST_RESISTANCE_MEAN,
+        		BLAST_RESISTANCE_STD,
+        		BLAST_RESISTANCE_MIN,
+        		BLAST_RESISTANCE_MAX);
+        
+        
         // TODO: pick a sound type randomly or based on something
         SoundType randomSoundType = SoundType.STONE;
         //...
-
+        
         Color randomColor = new Color(
-                InfiniteFeatures.getSeededRandom(2).nextInt(RGB_MAX),
-                InfiniteFeatures.getSeededRandom(2).nextInt(RGB_MAX),
-                InfiniteFeatures.getSeededRandom(2).nextInt(RGB_MAX)
-        );
-
+        		InfiniteFeatures.seededRandom.nextInt(RGB_MAX),
+        		InfiniteFeatures.seededRandom.nextInt(RGB_MAX),
+        		InfiniteFeatures.seededRandom.nextInt(RGB_MAX));
+        
         Mineral randomMineral = new Mineral(
-                randomName,
-                randomMaterial,
-                randomLightLevel,
-                randomToolType,
-                randomHarvestLevel,
-                randomHardness,
-                randomBlastResistance,
-                randomSoundType,
-                randomColor
-        );
-
+        		randomName,
+        		randomMaterial,
+        		randomLightLevel,
+        		randomToolType,
+        		randomHarvestLevel,
+        		randomHardness,
+        		randomBlastResistance,
+        		randomSoundType,
+        		randomColor);
+        
         return randomMineral;
     }
 }

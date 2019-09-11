@@ -38,6 +38,7 @@ public class InfiniteFeatures
 	public static File saveDir;
 	public static long seed;
 	public static long currentWorldSeed;
+	public static Random seededRandom;
 	public static String currentWorldFolder;
 	public static String currentWorldFolderName;
 	public static GuiScreen parentscreen;
@@ -62,7 +63,6 @@ public class InfiniteFeatures
 	
 	public static final CreativeTabs InfiniTab = new InfiniTab("InfiniteTab");
 	
-	public static int randomdone = 0;
 	
 	@Instance
 	public static InfiniteFeatures instance;
@@ -167,6 +167,7 @@ public class InfiniteFeatures
 			try
 			{
 				currentWorldSeed = ByteToLong(Files.readAllBytes(Paths.get(currentWorldFolder+"/infConfig/infFile")));
+				seededRandom = new Random(currentWorldSeed);
 			}
 			catch (IOException e)
 			{
@@ -351,12 +352,6 @@ public class InfiniteFeatures
 			| ((long) b[1] & 0xff) << 8
 			| ((long) b[0] & 0xff);
 			return l;
-	}
-	
-	public static Random getSeededRandom(int which)
-	{
-		randomdone++;
-		return new Random(currentWorldSeed+randomdone+which*10000);
 	}
 	
 	@SubscribeEvent
