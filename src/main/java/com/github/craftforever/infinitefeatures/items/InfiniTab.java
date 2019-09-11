@@ -19,6 +19,6 @@ public class InfiniTab extends CreativeTabs {
 
 		@Override
 		public ItemStack createIcon() {
-			return new ItemStack(ItemBlock.getItemFromBlock((Block) ModBlocks.RANDOM_BLOCK));
+			return new ItemStack(ItemBlock.getItemFromBlock((Block) ModBlocks.blockArray[0]));
 		}
 }
