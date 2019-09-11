@@ -6,6 +6,7 @@ import java.util.List;
 import com.github.craftforever.infinitefeatures.InfiniteFeatures;
 import com.github.craftforever.infinitefeatures.blocks.RandomBlock;
 import com.github.craftforever.infinitefeatures.util.Mineral;
+import com.github.craftforever.infinitefeatures.init.RandomFactory.*;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
@@ -30,18 +31,10 @@ public class ModBlocks {
 	//public static final Block RANDOM_BLOCK = new RandomBlock(minerals[0]).setCreativeTab(InfiniteFeatures.InfiniTab);
 	//public static final Block RANDOM_BLOCK2 = new RandomBlock(minerals[1]).setCreativeTab(InfiniteFeatures.InfiniTab);
 	//public static final Block RANDOM_BLOCK3 = new RandomBlock(minerals[2]).setCreativeTab(InfiniteFeatures.InfiniTab);
-	
+
+
 	public static Mineral getRandomMineral() {
-		Color color = new Color(InfiniteFeatures.getSeededRandom(2).nextInt(255),InfiniteFeatures.getSeededRandom(2).nextInt(255),InfiniteFeatures.getSeededRandom(2).nextInt(255));
-		String name = textpartarray[InfiniteFeatures.getSeededRandom(1).nextInt(44)]+textpartarray[InfiniteFeatures.getSeededRandom(1).nextInt(44)]
-				+textpartarray[InfiniteFeatures.getSeededRandom(1).nextInt(44)]+textpartarray[InfiniteFeatures.getSeededRandom(1).nextInt(44)];
-		float lightlevel = ((float)InfiniteFeatures.getSeededRandom(1).nextInt(15))/15.0F;
-		float hardness =(float)InfiniteFeatures.getSeededRandom(1).nextInt(10);
-		float resistance =(float)InfiniteFeatures.getSeededRandom(1).nextInt(10);
-		
-		//float lightlevel = ((float)InfiniteFeatures.getSeededRandom(2).nextInt(15))/15.0F;
-		Mineral mineral = new Mineral(name,Material.ROCK,lightlevel,"pickaxe",InfiniteFeatures.getSeededRandom(1).nextInt(3),hardness,resistance,SoundType.STONE,color);
-		return mineral;
+		return RandomFactory.randomMineralFactory(textpartarray);
 	}
 	private static Mineral[] generatemineralarray() {
 		Mineral[] mineralarray = new Mineral[InfiniteFeatures.ORE_QTY];
