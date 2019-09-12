@@ -42,14 +42,15 @@ public class RandomFactory {
         Material randomMaterial = Material.ROCK;
         // ...
 
+        float randomLightLevel = 0F;
         if (getRandomBoolean((float)LIGHTLEVEL_GLOW_PROBABILITY))
         {
             // The ore will glow
-            float randomLightLevel = (float)getRandomIntInRange(LIGHTLEVEL_MIN,LIGHTLEVEL_MAX) / 15;
+            randomLightLevel = (float)getRandomIntInRange(LIGHTLEVEL_MIN,LIGHTLEVEL_MAX) / 15;
         }
         else {
             // The ore won't glow
-            float randomLightLevel = 0F
+            randomLightLevel = 0F;
         }
         
         // TODO: pick tool type based off the base texture, (sand/dirt base textures probably makes sense to use a shovel)
