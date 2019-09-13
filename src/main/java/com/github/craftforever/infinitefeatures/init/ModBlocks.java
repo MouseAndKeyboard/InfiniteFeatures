@@ -37,29 +37,45 @@ public class ModBlocks
 	
 	private static Mineral[] generatemineralarray()
 	{
-		Mineral[] mineralarray = new Mineral[InfiniteFeatures.ORE_QTY];
-		for (int i = 0; i < InfiniteFeatures.ORE_QTY; i++)
-		{
-			mineralarray[i] = getRandomMineral();
+		if(InfiniteFeatures.continueRandomGeneration) {
+			Mineral[] mineralarray = new Mineral[InfiniteFeatures.ORE_QTY];
+			for (int i = 0; i < InfiniteFeatures.ORE_QTY; i++)
+			{
+				mineralarray[i] = getRandomMineral();
 			}
-		return mineralarray;
+			return mineralarray;
+		}else {
+			Mineral[] mineralarray = null;
+			return mineralarray;
+		}	
 	}
 	
 	public static Block[] generateblockarray()
 	{
-		Block[] blockarray = new Block[InfiniteFeatures.ORE_QTY];
-		for (int i = 0; i < InfiniteFeatures.ORE_QTY; i++) {
-			blockarray[i] = RandomFactory.randomBlockFactory(minerals[i]).setCreativeTab(InfiniteFeatures.InfiniTab);
+		if(InfiniteFeatures.continueRandomGeneration) {
+			Block[] blockarray = new Block[InfiniteFeatures.ORE_QTY];
+			for (int i = 0; i < InfiniteFeatures.ORE_QTY; i++) {
+				blockarray[i] = RandomFactory.randomBlockFactory(minerals[i]).setCreativeTab(InfiniteFeatures.InfiniTab);
 			}
-		return blockarray;
+			return blockarray;
+		}else {
+			Block[] blockarray = null;
+			return blockarray;
+		}
+		
 	}
 	
 	public static Block[] generateingotblockarray()
 	{
-		Block[] ingotblockarray = new Block[InfiniteFeatures.ORE_QTY];
-		for (int i = 0; i < InfiniteFeatures.ORE_QTY; i++) {
-			ingotblockarray[i] = new BlockBase(minerals[i].name+"_block",Material.IRON).setCreativeTab(InfiniteFeatures.InfiniTab);
-			}
-		return ingotblockarray;
+		if(InfiniteFeatures.continueRandomGeneration) {
+			Block[] ingotblockarray = new Block[InfiniteFeatures.ORE_QTY];
+			for (int i = 0; i < InfiniteFeatures.ORE_QTY; i++) {
+				ingotblockarray[i] = new BlockBase(minerals[i].name+"_block",Material.IRON).setCreativeTab(InfiniteFeatures.InfiniTab);
+				}
+			return ingotblockarray;
+		}else {
+			Block[] ingotblockarray = null;
+			return ingotblockarray;
+		}
 	}
 }
