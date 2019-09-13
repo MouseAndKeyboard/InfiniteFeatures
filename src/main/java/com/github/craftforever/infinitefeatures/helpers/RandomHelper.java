@@ -25,7 +25,10 @@ public class RandomHelper {
         return InfiniteFeatures.seededRandom.nextFloat()*(max - min)+min;
     }
     
-    
+    public static <T extends Enum<?>> T randomEnum(Class<T> clazz){
+        int x = InfiniteFeatures.seededRandom.nextInt(clazz.getEnumConstants().length);
+        return clazz.getEnumConstants()[x];
+    }
     
     public static double getRandomGaussianInRange(double mean, double standardDeviation, double min, double max){
         if (min >= max) {

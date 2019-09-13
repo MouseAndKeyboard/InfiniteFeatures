@@ -2,6 +2,8 @@ package com.github.craftforever.infinitefeatures.init;
 
 import com.github.craftforever.infinitefeatures.InfiniteFeatures;
 import com.github.craftforever.infinitefeatures.blocks.RandomBlock;
+import com.github.craftforever.infinitefeatures.blocks.RandomBlock.SpecialEvent;
+import com.github.craftforever.infinitefeatures.blocks.RandomBlock.SpecialEventTrigger;
 import com.github.craftforever.infinitefeatures.util.Mineral;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -85,6 +87,10 @@ public class RandomFactory {
         else {
             randomSlipperiness = 0F;
         }
+                
+        SpecialEvent randomEvent = SpecialEvent.RANDOM_LIGHTLEVEL;
+
+        SpecialEventTrigger randomTrigger = SpecialEventTrigger.ONCOLLIDED;
         
         RandomBlock randomBlock = new RandomBlock(
                 imineral,
@@ -95,7 +101,9 @@ public class RandomFactory {
         		randomHardness,
         		randomBlastResistance,
                 randomSoundType,
-                randomSlipperiness);
+                randomSlipperiness,
+                randomEvent,
+                randomTrigger);
         
         return randomBlock;
     }
