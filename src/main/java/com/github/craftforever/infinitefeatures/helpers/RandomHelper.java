@@ -12,7 +12,7 @@ public class RandomHelper {
         return InfiniteFeatures.seededRandom.nextInt((max - min) + 1) + min;
     }
 
-    static boolean getRandomBoolean(float probability) {
+    public static boolean getRandomBoolean(float probability) {
         float randomValue = InfiniteFeatures.seededRandom.nextFloat();
         return randomValue <= probability;
     }
