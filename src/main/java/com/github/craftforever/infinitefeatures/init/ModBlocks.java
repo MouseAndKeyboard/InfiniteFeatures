@@ -70,7 +70,7 @@ public class ModBlocks
 		if(InfiniteFeatures.continueRandomGeneration) {
 			Block[] ingotblockarray = new Block[InfiniteFeatures.ORE_QTY];
 			for (int i = 0; i < InfiniteFeatures.ORE_QTY; i++) {
-				ingotblockarray[i] = new BlockBase(minerals[i].name+"_block",Material.IRON).setCreativeTab(InfiniteFeatures.InfiniTab);
+					ingotblockarray[i] = new BlockBase(minerals[i].name+"_block",Material.IRON).setCreativeTab(InfiniteFeatures.InfiniTab).setHardness(5).setResistance(30);
 				}
 			return ingotblockarray;
 		}else {

@@ -185,9 +185,9 @@ public class RandomBlock extends Block implements IHasModel {
 			invokeSpecialEvent(uniqueAttribute);
 		}
 	}
-
 	@Override
 	public void onLanded(net.minecraft.world.World p_onLanded_1_, net.minecraft.entity.Entity p_onLanded_2_) {
+		p_onLanded_2_.motionY = 0.0D;
 		if (uniqueTrigger == SpecialEventTrigger.ONLANDED) {
 			invokeSpecialEvent(uniqueAttribute);
 		}
