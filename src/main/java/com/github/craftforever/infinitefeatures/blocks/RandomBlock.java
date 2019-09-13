@@ -7,6 +7,8 @@ import com.github.craftforever.infinitefeatures.init.ModItems;
 import com.github.craftforever.infinitefeatures.util.Mineral;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
+import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 
@@ -14,20 +16,35 @@ public class RandomBlock extends Block implements IHasModel
 {
 	public Mineral mineral;
 	
-	public RandomBlock(Mineral imineral)
+	public String toolType;
+	public Material material;
+	public float lightlevel, hardness, resistance;
+	public int harvestLevel;
+	public SoundType sound;
+
+	public RandomBlock(Mineral imineral, Material imaterial, float ilightLevel, String itoolType, int iharvestLevel, 
+	float ihardness, float iresistance, SoundType isound)
 	{
-		super(imineral.material);
+		super(imaterial);
 		setTranslationKey(imineral.name+"_ore");
 		setRegistryName(imineral.name+"_ore");
 		ModBlocks.BLOCKS.add(this);
 		ModItems.ITEMS.add(new ItemBlock(this).setRegistryName(this.getRegistryName()));
 		
-		setSoundType(imineral.sound);
-		setHardness(imineral.hardness);
-		setResistance(imineral.resistance);
-		setHarvestLevel(imineral.toolType,imineral.harvestLevel);
-		setLightLevel(imineral.lightlevel);
-		mineral = imineral;
+		setSoundType(isound);
+		setHardness(ihardness);
+		setResistance(iresistance);
+		setHarvestLevel(itoolType,iharvestLevel);
+		setLightLevel(ilightLevel);
+
+		this.mineral = imineral;
+		this.toolType = itoolType;
+		this.material = imaterial;
+		this.lightlevel = ilightLevel;
+		this.hardness = ihardness;
+		this.resistance = iresistance;
+		this.harvestLevel = iharvestLevel;
+		this.sound = isound;
 	}
 	
 	@Override

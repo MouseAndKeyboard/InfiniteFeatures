@@ -3,7 +3,6 @@ package com.github.craftforever.infinitefeatures.init;
 import java.util.ArrayList;
 import java.util.List;
 import com.github.craftforever.infinitefeatures.InfiniteFeatures;
-import com.github.craftforever.infinitefeatures.blocks.RandomBlock;
 import com.github.craftforever.infinitefeatures.util.Mineral;
 import net.minecraft.block.Block;
 
@@ -47,7 +46,7 @@ public class ModBlocks
 	{
 		Block[] blockarray = new Block[InfiniteFeatures.ORE_QTY];
 		for (int i = 0; i < InfiniteFeatures.ORE_QTY; i++) {
-			blockarray[i] = new RandomBlock(minerals[i]).setCreativeTab(InfiniteFeatures.InfiniTab);
+			blockarray[i] = RandomFactory.randomBlockFactory(minerals[i]).setCreativeTab(InfiniteFeatures.InfiniTab);
 			}
 		return blockarray;
 	}
