@@ -87,10 +87,10 @@ public class RandomFactory {
         else {
             randomSlipperiness = 0F;
         }
-                
-        SpecialEvent randomEvent = SpecialEvent.RANDOM_LIGHTLEVEL;
 
-        SpecialEventTrigger randomTrigger = SpecialEventTrigger.ONCOLLIDED;
+        SpecialEvent randomEvent = randomEnum(SpecialEvent.class);
+
+        SpecialEventTrigger randomTrigger = randomEnum(SpecialEventTrigger.class);
         
         RandomBlock randomBlock = new RandomBlock(
                 imineral,
