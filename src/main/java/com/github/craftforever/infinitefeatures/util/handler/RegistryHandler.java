@@ -89,8 +89,9 @@ public class RegistryHandler
 				"  }\r\n" + 
 				"}";
 		BufferedWriter writer = Files.newBufferedWriter(langFile.toPath(), charset);
-		for(Block block : ModBlocks.BLOCKS)
+		for(int i = 0; i < InfiniteFeatures.ORE_QTY; i++)
 		{
+			Block block = ModBlocks.blockArray[i];
 			String blockName = block.getTranslationKey().substring(5);
 			blockName = blockName.replace("_", " ");
 			blockName = WordUtils.capitalize(blockName);
@@ -98,8 +99,19 @@ public class RegistryHandler
 			writer.write(langinput);
 			writer.flush();
 		}
-		for(Item item : ModItems.ITEMS)
+		for(int i = 0; i < InfiniteFeatures.ORE_QTY; i++) 
 		{
+			Block block = ModBlocks.ingotblockArray[i];
+			String blockName = block.getTranslationKey().substring(5,block.getTranslationKey().length()-6);
+			blockName = WordUtils.capitalize(blockName);
+			blockName = "Block of " + blockName;
+			String langinput = block.getTranslationKey()+".name="+blockName+"\n";
+			writer.write(langinput);
+			writer.flush();
+		}
+		for(int i = 0; i < InfiniteFeatures.ORE_QTY; i++)
+		{
+			Item item = ModItems.itemArray[i];
 			String itemName = item.getTranslationKey().substring(5);
 			itemName = itemName.replace("_", " ");
 			itemName = WordUtils.capitalize(itemName);
