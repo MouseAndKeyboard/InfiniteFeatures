@@ -17,7 +17,8 @@ public class RandomFactory {
 
     // TODO: allow users to customise min/max values via config file
     private static final int LIGHTLEVEL_MAX = 15;
-    private static final int LIGHTLEVEL_MIN = 0;
+    private static final int LIGHTLEVEL_MIN = 1;
+    private static final double LIGHTLEVEL_GLOW_PROBABILITY = 0.1D;
     private static final int HARDNESS_MIN = 1;
     private static final int HARDNESS_MAX = 10;
     private static final double BLAST_RESISTANCE_MEAN = 15.0D;
@@ -40,9 +41,17 @@ public class RandomFactory {
         // TODO: randomly pick a material
         Material randomMaterial = Material.ROCK;
         // ...
-        
-        float randomLightLevel = (float)getRandomIntInRange(LIGHTLEVEL_MIN,LIGHTLEVEL_MAX) / 15;
-        
+
+        float randomLightLevel = 0F;
+        if (getRandomBoolean((float)LIGHTLEVEL_GLOW_PROBABILITY))
+        {
+            // The ore will glow
+            randomLightLevel = (float)getRandomIntInRange(LIGHTLEVEL_MIN,LIGHTLEVEL_MAX) / 15;
+        }
+        else {
+            // The ore won't glow
+            randomLightLevel = 0F;
+        }
         
         // TODO: pick tool type based off the base texture, (sand/dirt base textures probably makes sense to use a shovel)
         // Depending on the direction/extent you want to take the randomisation this could be generated randomly although that would make for poor experiences
