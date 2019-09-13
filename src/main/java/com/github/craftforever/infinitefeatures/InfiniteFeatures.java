@@ -205,6 +205,7 @@ public class InfiniteFeatures
 			currentWorldFile.createNewFile();
 			byte[] saveBytes = saveDir.getBytes();
 			Files.write(currentWorldFile.toPath(), saveBytes);
+			shutItDown = true;
 		}
 		else
 		{
@@ -287,6 +288,7 @@ public class InfiniteFeatures
 			currentWorldFile.createNewFile();
 			byte[] saveBytes = saveDir.getBytes();
 			Files.write(currentWorldFile.toPath(), saveBytes);
+			shutItDown = true;
 		}
 		else
 		{
