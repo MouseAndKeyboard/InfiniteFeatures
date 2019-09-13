@@ -89,7 +89,7 @@ public class RegistryHandler
 				"  }\r\n" + 
 				"}";
 		BufferedWriter writer = Files.newBufferedWriter(langFile.toPath(), charset);
-		for(Block block : ModBlocks.blockArray)
+		for(Block block : ModBlocks.BLOCKS)
 		{
 			String blockName = block.getTranslationKey().substring(5);
 			blockName = blockName.replace("_", " ");
