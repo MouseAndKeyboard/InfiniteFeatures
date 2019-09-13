@@ -1,6 +1,7 @@
 package com.github.craftforever.infinitefeatures.init;
 
 import com.github.craftforever.infinitefeatures.InfiniteFeatures;
+import com.github.craftforever.infinitefeatures.blocks.RandomBlock;
 import com.github.craftforever.infinitefeatures.util.Mineral;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -29,15 +30,8 @@ public class RandomFactory {
     private static final int HARVEST_LEVEL_MIN = 0;
     private static final int HARVEST_LEVEL_MAX = 3;
 
-    public static Mineral randomMineralFactory(String[] textpartarray)
+    public static RandomBlock randomBlockFactory(Mineral imineral)
     {
-
-    	String randomName =
-        		textpartarray[getRandomIntInRange(0,textpartarray.length)]
-                + textpartarray[getRandomIntInRange(0,textpartarray.length)]
-                + textpartarray[getRandomIntInRange(0,textpartarray.length)]
-                + textpartarray[getRandomIntInRange(0,textpartarray.length)];
-        
         // TODO: randomly pick a material
         Material randomMaterial = Material.ROCK;
         // ...
@@ -78,23 +72,40 @@ public class RandomFactory {
         // TODO: pick a sound type randomly or based on something
         SoundType randomSoundType = SoundType.STONE;
         //...
+
         
-        Color randomColor = new Color(
-        		InfiniteFeatures.seededRandom.nextInt(RGB_MAX),
-        		InfiniteFeatures.seededRandom.nextInt(RGB_MAX),
-        		InfiniteFeatures.seededRandom.nextInt(RGB_MAX));
-        
-        Mineral randomMineral = new Mineral(
-        		randomName,
-        		randomMaterial,
+        RandomBlock randomBlock = new RandomBlock(
+                imineral,
+                randomMaterial,
         		randomLightLevel,
         		randomToolType,
         		randomHarvestLevel,
         		randomHardness,
         		randomBlastResistance,
-        		randomSoundType,
-        		randomColor);
+        		randomSoundType);
+        
+        return randomBlock;
+    }
+
+    public static Mineral randomMineralFactory(String[] textpartarray)
+    {
+    	String randomName =
+        		textpartarray[getRandomIntInRange(0,textpartarray.length)]
+                + textpartarray[getRandomIntInRange(0,textpartarray.length)]
+                + textpartarray[getRandomIntInRange(0,textpartarray.length)]
+                + textpartarray[getRandomIntInRange(0,textpartarray.length)];
+          
+        Color randomColor = new Color(
+            InfiniteFeatures.seededRandom.nextInt(RGB_MAX),
+            InfiniteFeatures.seededRandom.nextInt(RGB_MAX),
+            InfiniteFeatures.seededRandom.nextInt(RGB_MAX));
+
+        Mineral randomMineral = new Mineral(
+            randomName, 
+            randomColor);
         
         return randomMineral;
     }
+
+
 }
