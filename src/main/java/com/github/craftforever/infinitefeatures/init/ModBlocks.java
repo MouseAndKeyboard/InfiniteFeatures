@@ -3,8 +3,10 @@ package com.github.craftforever.infinitefeatures.init;
 import java.util.ArrayList;
 import java.util.List;
 import com.github.craftforever.infinitefeatures.InfiniteFeatures;
+import com.github.craftforever.infinitefeatures.blocks.BlockBase;
 import com.github.craftforever.infinitefeatures.util.Mineral;
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 
 public class ModBlocks
 {
@@ -24,6 +26,7 @@ public class ModBlocks
 	
 	public static final Block[] blockArray = generateblockarray();
 	
+	public static final Block[] ingotblockArray = generateingotblockarray();
 	//public static final Block RANDOM_BLOCK = new RandomBlock(minerals[0]).setCreativeTab(InfiniteFeatures.InfiniTab);
 	//public static final Block RANDOM_BLOCK2 = new RandomBlock(minerals[1]).setCreativeTab(InfiniteFeatures.InfiniTab);
 	//public static final Block RANDOM_BLOCK3 = new RandomBlock(minerals[2]).setCreativeTab(InfiniteFeatures.InfiniTab);
@@ -49,5 +52,14 @@ public class ModBlocks
 			blockarray[i] = RandomFactory.randomBlockFactory(minerals[i]).setCreativeTab(InfiniteFeatures.InfiniTab);
 			}
 		return blockarray;
+	}
+	
+	public static Block[] generateingotblockarray()
+	{
+		Block[] ingotblockarray = new Block[InfiniteFeatures.ORE_QTY];
+		for (int i = 0; i < InfiniteFeatures.ORE_QTY; i++) {
+			ingotblockarray[i] = new BlockBase(minerals[i].name+"_block",Material.IRON).setCreativeTab(InfiniteFeatures.InfiniTab);
+			}
+		return ingotblockarray;
 	}
 }

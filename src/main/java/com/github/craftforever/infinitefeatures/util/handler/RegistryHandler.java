@@ -89,7 +89,7 @@ public class RegistryHandler
 				"  }\r\n" + 
 				"}";
 		BufferedWriter writer = Files.newBufferedWriter(langFile.toPath(), charset);
-		for(Block block : ModBlocks.BLOCKS)
+		for(Block block : ModBlocks.blockArray)
 		{
 			String blockName = block.getTranslationKey().substring(5);
 			blockName = blockName.replace("_", " ");
@@ -148,8 +148,7 @@ public class RegistryHandler
 		}
 		*/
 		//Creating Textures for the Ores and Ingots
-		int i = 0;
-		for(Block block : ModBlocks.BLOCKS)
+		for(int i = 0; i < InfiniteFeatures.ORE_QTY; i++)
 		{
 			InputStream stream = InfiniteFeatures.class.getClassLoader().getResourceAsStream("assets/infeatures/textures/block/base/stone.png");
 			BufferedImage baseImg = ImageIO.read(stream);
@@ -164,9 +163,13 @@ public class RegistryHandler
 			stream = InfiniteFeatures.class.getClassLoader().getResourceAsStream("assets/infeatures/textures/item/ingot/generic.png");
 			BufferedImage ingotImg = ImageIO.read(stream);
 			dye(ingotImg,color);
-			ImageIO.write(ingotImg, "PNG", new File("InfiniCraft/Resources/assets/infeatures/textures/items/"+block.getRegistryName().toString().substring(11, block.getRegistryName().toString().length()-4)+"_ingot".trim()+".png"));
-			ImageIO.write(finalImg, "PNG", new File("InfiniCraft/Resources/assets/infeatures/textures/blocks/"+block.getTranslationKey().substring(5)+".png"));
-			i++;
+			stream = InfiniteFeatures.class.getClassLoader().getResourceAsStream("assets/infeatures/textures/block/storage/generic_iron_old.png");
+			BufferedImage ingotBlockImg = ImageIO.read(stream);
+			dye(ingotBlockImg,color);
+			ImageIO.write(ingotBlockImg, "PNG", new File("InfiniCraft/Resources/assets/infeatures/textures/blocks/"+ModBlocks.ingotblockArray[i].getTranslationKey().substring(5)+".png"));
+			ImageIO.write(ingotImg, "PNG", new File("InfiniCraft/Resources/assets/infeatures/textures/items/"+ModItems.itemArray[i].getTranslationKey().substring(5)+".png"));
+			ImageIO.write(finalImg, "PNG", new File("InfiniCraft/Resources/assets/infeatures/textures/blocks/"+ModBlocks.blockArray[i].getTranslationKey().substring(5)+".png"));
+			
 		}
 	}
 	

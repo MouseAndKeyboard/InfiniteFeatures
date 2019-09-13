@@ -107,6 +107,7 @@ public class InfiniteFeatures
 	public static void init(FMLInitializationEvent event)
 	{
 		RecipeHandler.createFurnaceRecipes();
+		RecipeHandler.createCraftingRecipes();
 	}
 	
 	@EventHandler
