@@ -2,9 +2,12 @@ package com.github.craftforever.infinitefeatures.init;
 
 import com.github.craftforever.infinitefeatures.InfiniteFeatures;
 import com.github.craftforever.infinitefeatures.blocks.RandomBlock;
+import com.github.craftforever.infinitefeatures.blocks.RandomBlock.SpecialEvent;
+import com.github.craftforever.infinitefeatures.blocks.RandomBlock.SpecialEventTrigger;
 import com.github.craftforever.infinitefeatures.util.Mineral;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import scala.tools.nsc.backend.icode.analysis.CopyPropagation.Const;
 
 import java.awt.*;
 
@@ -20,6 +23,9 @@ public class RandomFactory {
     private static final int LIGHTLEVEL_MAX = 15;
     private static final int LIGHTLEVEL_MIN = 1;
     private static final double LIGHTLEVEL_GLOW_PROBABILITY = 0.1D;
+    private static final double SLIPPERINESS_PROBABILITY = 0.1D;
+    private static final int SLIPPERINESS_MAX = 4;
+    private static final int SLIPPERINESS_MIN = 0;
     private static final int HARDNESS_MIN = 1;
     private static final int HARDNESS_MAX = 10;
     private static final double BLAST_RESISTANCE_MEAN = 15.0D;
@@ -73,6 +79,18 @@ public class RandomFactory {
         SoundType randomSoundType = SoundType.STONE;
         //...
 
+        float randomSlipperiness = 0F;
+        if (getRandomBoolean((float)SLIPPERINESS_PROBABILITY))
+        {
+            randomSlipperiness = (float)getRandomIntInRange(SLIPPERINESS_MIN,SLIPPERINESS_MAX);
+        }
+        else {
+            randomSlipperiness = 0F;
+        }
+
+        SpecialEvent randomEvent = randomEnum(SpecialEvent.class);
+
+        SpecialEventTrigger randomTrigger = randomEnum(SpecialEventTrigger.class);
         
         RandomBlock randomBlock = new RandomBlock(
                 imineral,
@@ -82,7 +100,10 @@ public class RandomFactory {
         		randomHarvestLevel,
         		randomHardness,
         		randomBlastResistance,
-        		randomSoundType);
+                randomSoundType,
+                randomSlipperiness,
+                randomEvent,
+                randomTrigger);
         
         return randomBlock;
     }
