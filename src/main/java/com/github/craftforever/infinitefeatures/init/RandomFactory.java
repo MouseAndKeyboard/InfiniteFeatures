@@ -101,7 +101,6 @@ public class RandomFactory {
         		randomHardness,
         		randomBlastResistance,
                 randomSoundType,
-                randomSlipperiness,
                 randomEvent,
                 randomTrigger);
         

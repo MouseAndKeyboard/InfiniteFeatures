@@ -33,7 +33,6 @@ public class RandomBlock extends Block implements IHasModel {
 	public float lightlevel, hardness, resistance;
 	public int harvestLevel;
 	public SoundType sound;
-	public float slipperiness;
 	public SpecialEvent uniqueAttribute;
 	public SpecialEventTrigger uniqueTrigger;
 
@@ -83,7 +82,7 @@ public class RandomBlock extends Block implements IHasModel {
 	}
 
 	public RandomBlock(Mineral imineral, Material imaterial, float ilightLevel, String itoolType, int iharvestLevel,
-			float ihardness, float iresistance, SoundType isound, float islipperiness, SpecialEvent iuniqueAttribute, SpecialEventTrigger iuniqueTrigger) {
+			float ihardness, float iresistance, SoundType isound, SpecialEvent iuniqueAttribute, SpecialEventTrigger iuniqueTrigger) {
 		super(imaterial);
 		setTranslationKey(imineral.name + "_ore");
 		setRegistryName(imineral.name + "_ore");
@@ -95,7 +94,6 @@ public class RandomBlock extends Block implements IHasModel {
 		setResistance(iresistance);
 		setHarvestLevel(itoolType, iharvestLevel);
 		setLightLevel(ilightLevel);
-		setDefaultSlipperiness(islipperiness);
 
 		this.uniqueAttribute = iuniqueAttribute;
 		this.uniqueTrigger = iuniqueTrigger;
@@ -107,7 +105,6 @@ public class RandomBlock extends Block implements IHasModel {
 		this.resistance = iresistance;
 		this.harvestLevel = iharvestLevel;
 		this.sound = isound;
-		this.slipperiness = islipperiness;
 	}
 
 	// #region Potential function overrides
