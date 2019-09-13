@@ -90,10 +90,10 @@ public class RandomFactory {
     public static Mineral randomMineralFactory(String[] textpartarray)
     {
     	String randomName =
-        		textpartarray[getRandomIntInRange(0,textpartarray.length)]
-                + textpartarray[getRandomIntInRange(0,textpartarray.length)]
-                + textpartarray[getRandomIntInRange(0,textpartarray.length)]
-                + textpartarray[getRandomIntInRange(0,textpartarray.length)];
+        		textpartarray[getRandomIntInRange(0,textpartarray.length-1)]
+                + textpartarray[getRandomIntInRange(0,textpartarray.length-1)]
+                + textpartarray[getRandomIntInRange(0,textpartarray.length-1)]
+                + textpartarray[getRandomIntInRange(0,textpartarray.length-1)];
           
         Color randomColor = new Color(
             InfiniteFeatures.seededRandom.nextInt(RGB_MAX),
