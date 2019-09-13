@@ -75,39 +75,44 @@ public class InfiniteFeatures
 	@EventHandler
 	public static void PreInit(FMLPreInitializationEvent event)
 	{
-		try 
-		{
-			RegistryHandler.generateLangFile();
+		if(continueRandomGeneration) {
+			try 
+			{
+				RegistryHandler.generateLangFile();
+			}
+			catch (IOException e) {}
+		
+			try
+			{
+				RegistryHandler.generateTextures();
+			}
+			catch (IOException e1) {}
+			
+			try
+			{
+				RegistryHandler.generateModels();
+			}
+			catch (IOException e1) {}
+		
+			
+			try
+			{
+				ClientProxy.registerResources();
+			}
+			catch (NoSuchFieldException | SecurityException e) {}
+			
+			GameRegistry.registerWorldGenerator(new OreGen(), 3);
 		}
-		catch (IOException e) {}
-		
-		try
-		{
-			RegistryHandler.generateTextures();
-		}
-		catch (IOException e1) {}
-		
-		try
-		{
-			RegistryHandler.generateModels();
-		}
-		catch (IOException e1) {}
-		
-		
-		try
-		{
-			ClientProxy.registerResources();
-		}
-		catch (NoSuchFieldException | SecurityException e) {}
-		
-		GameRegistry.registerWorldGenerator(new OreGen(), 3);
 	}
 	
 	@EventHandler
 	public static void init(FMLInitializationEvent event)
 	{
-		RecipeHandler.createFurnaceRecipes();
-		RecipeHandler.createCraftingRecipes();
+		if(continueRandomGeneration) {
+			RecipeHandler.createFurnaceRecipes();
+			RecipeHandler.createCraftingRecipes();
+		}
+		
 	}
 	
 	@EventHandler
