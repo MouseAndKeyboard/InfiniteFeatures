@@ -21,9 +21,10 @@ public class RandomBlock extends Block implements IHasModel
 	public float lightlevel, hardness, resistance;
 	public int harvestLevel;
 	public SoundType sound;
+	public float slipperiness;
 
 	public RandomBlock(Mineral imineral, Material imaterial, float ilightLevel, String itoolType, int iharvestLevel, 
-	float ihardness, float iresistance, SoundType isound)
+	float ihardness, float iresistance, SoundType isound, float islipperiness)
 	{
 		super(imaterial);
 		setTranslationKey(imineral.name+"_ore");
@@ -36,6 +37,7 @@ public class RandomBlock extends Block implements IHasModel
 		setResistance(iresistance);
 		setHarvestLevel(itoolType,iharvestLevel);
 		setLightLevel(ilightLevel);
+		setDefaultSlipperiness(islipperiness);
 
 		this.mineral = imineral;
 		this.toolType = itoolType;
@@ -45,6 +47,7 @@ public class RandomBlock extends Block implements IHasModel
 		this.resistance = iresistance;
 		this.harvestLevel = iharvestLevel;
 		this.sound = isound;
+		this.slipperiness = islipperiness;
 	}
 	
 	@Override
