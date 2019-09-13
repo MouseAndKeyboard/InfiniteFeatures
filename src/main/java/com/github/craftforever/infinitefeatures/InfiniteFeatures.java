@@ -11,6 +11,7 @@ import org.apache.logging.log4j.Logger;
 import com.github.craftforever.infinitefeatures.gui.*;
 import com.github.craftforever.infinitefeatures.proxy.*;
 import com.github.craftforever.infinitefeatures.util.handler.*;
+import com.github.craftforever.infinitefeatures.world.OreGen;
 import com.github.craftforever.infinitefeatures.items.*;
 
 import net.minecraft.client.Minecraft;
@@ -27,6 +28,7 @@ import net.minecraftforge.fml.common.Mod.*;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 @Mod(modid = "infeatures")
 public class InfiniteFeatures
@@ -97,6 +99,8 @@ public class InfiniteFeatures
 			ClientProxy.registerResources();
 		}
 		catch (NoSuchFieldException | SecurityException e) {}
+		
+		GameRegistry.registerWorldGenerator(new OreGen(), 3);
 	}
 	
 	@EventHandler
