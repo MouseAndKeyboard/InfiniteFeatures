@@ -52,15 +52,44 @@ public class RandomFactory {
 
         allEvents.add(new ApplyPotionEffectRange(getRandomIntInRange(POT_ID_MIN, POT_ID_MAX),
                 getRandomIntInRange(POT_DURATION_MIN, POT_DURATION_MAX),
-                getRandomIntInRange(POT_LEVEL_MIN, POT_LEVEL_MAX), getRandomBoolean(POT_AMBIENT_PROBABILITY),
+                getRandomIntInRange(POT_LEVEL_MIN, POT_LEVEL_MAX), 
+                getRandomBoolean(POT_AMBIENT_PROBABILITY),
                 getRandomBoolean(POT_PARTICLES_PROBABILITY)));
 
         allEvents.add(new ApplyPotionEffectRangeRandomly(getRandomIntInRange(POT_ID_MIN, POT_ID_MAX),
                 getRandomIntInRange(POT_DURATION_MIN, POT_DURATION_MAX),
-                getRandomIntInRange(POT_LEVEL_MIN, POT_LEVEL_MAX), getRandomBoolean(POT_AMBIENT_PROBABILITY),
+                getRandomIntInRange(POT_LEVEL_MIN, POT_LEVEL_MAX),
+                getRandomBoolean(POT_AMBIENT_PROBABILITY),
                 getRandomBoolean(POT_PARTICLES_PROBABILITY),
                 getRandomFloatInRange(POT_TRIGGER_PROBABILITY_MIN, POT_TRIGGER_PROBABILITY_MAX)));
         
+        allEvents.add(new ApplyPotionEffectRange(
+                getRandomIntInRange(POT_ID_MIN, POT_ID_MAX), 
+                POT_DURATION_MIN, 
+                POT_DURATION_MAX, 
+                getRandomFloatInRange(POT_DURATION_MIN, POT_DURATION_MAX), 
+                getRandomFloatInRange(0, POT_DURATION_MAX), 
+                POT_LEVEL_MIN, 
+                POT_LEVEL_MAX, 
+                getRandomFloatInRange(POT_LEVEL_MIN, POT_LEVEL_MAX), 
+                getRandomFloatInRange(0, POT_DURATION_MAX), 
+                getRandomBoolean(POT_AMBIENT_PROBABILITY),
+                getRandomBoolean(POT_PARTICLES_PROBABILITY)));
+
+        allEvents.add(new ApplyPotionEffectRangeRandomly(
+            getRandomIntInRange(POT_ID_MIN, POT_ID_MAX), 
+            POT_DURATION_MIN, 
+            POT_DURATION_MAX, 
+            getRandomFloatInRange(POT_DURATION_MIN, POT_DURATION_MAX), 
+            getRandomFloatInRange(0, POT_DURATION_MAX), 
+            POT_LEVEL_MIN, 
+            POT_LEVEL_MAX, 
+            getRandomFloatInRange(POT_LEVEL_MIN, POT_LEVEL_MAX), 
+            getRandomFloatInRange(0, POT_DURATION_MAX), 
+            getRandomBoolean(POT_AMBIENT_PROBABILITY),
+            getRandomBoolean(POT_PARTICLES_PROBABILITY),
+            getRandomFloatInRange(POT_TRIGGER_PROBABILITY_MIN, POT_TRIGGER_PROBABILITY_MAX)));
+
         return allEvents;
     }
 
