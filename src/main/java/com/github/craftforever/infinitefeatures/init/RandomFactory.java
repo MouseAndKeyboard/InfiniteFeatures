@@ -4,6 +4,7 @@ import com.github.craftforever.infinitefeatures.InfiniteFeatures;
 import com.github.craftforever.infinitefeatures.blocks.RandomBlock;
 import com.github.craftforever.infinitefeatures.blocks.RandomBlock.SpecialEventTrigger;
 import com.github.craftforever.infinitefeatures.blocks.specialevents.*;
+import com.github.craftforever.infinitefeatures.helpers.RandomHelper;
 import com.github.craftforever.infinitefeatures.util.Mineral;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -34,6 +35,28 @@ public class RandomFactory {
 
     private static final int HARVEST_LEVEL_MIN = 0;
     private static final int HARVEST_LEVEL_MAX = 3;
+
+    // ALL_POSSIBLE_EVENT_PARAMETERS (THIS SHOULD ABSOLUTLY BE MOVED SOMEWHERE ELSE)
+    private static final int POT_ID_MIN = 1;
+    private static final int POT_ID_MAX = 32;
+    private static final int POT_DURATION_MIN = 0;
+    private static final int POT_DURATION_MAX = 600;
+    private static final int POT_LEVEL_MIN = 1;
+    private static final int POT_LEVEL_MAX = 2;
+    private static final float POT_AMBIENT_PROBABILITY = 0.2f;
+    private static final float POT_PARTICLES_PROBABILITY = 0.9f;
+
+    private static List<ISpecialEvent> GenerateAllPossibleEvents(){
+        List<ISpecialEvent> allEvents = new ArrayList<ISpecialEvent>();
+
+        allEvents.add(new ApplyPotionEffectRange(
+            getRandomIntInRange(POT_ID_MIN, POT_ID_MAX), 
+            getRandomIntInRange(POT_DURATION_MIN, POT_DURATION_MAX), 
+            getRandomIntInRange(POT_LEVEL_MIN, POT_LEVEL_MAX), 
+            getRandomBoolean(POT_AMBIENT_PROBABILITY), 
+            getRandomBoolean(POT_PARTICLES_PROBABILITY)));
+        return allEvents;
+    }
 
     public static RandomBlock randomBlockFactory(Mineral imineral)
     {
@@ -87,8 +110,13 @@ public class RandomFactory {
 
         // Assign the TestEvent to a random trigger
         SpecialEventTrigger randomTrigger = randomEnum(SpecialEventTrigger.class);
-        ISpecialEvent test = new TestEvent();
-        randomUniqueActions.get(randomTrigger).add(test);
+
+        List<ISpecialEvent> allPossibleEvents = GenerateAllPossibleEvents();
+
+
+        ISpecialEvent selectedEvent = RandomHelper.getRandomItem(allPossibleEvents);
+
+        randomUniqueActions.get(randomTrigger).add(selectedEvent);
         
         RandomBlock randomBlock = new RandomBlock(
                 imineral,
