@@ -1,5 +1,7 @@
 package com.github.craftforever.infinitefeatures.helpers;
 
+import java.util.List;
+
 import com.github.craftforever.infinitefeatures.InfiniteFeatures;
 
 // Class used for randomly generating numbers & values
@@ -28,6 +30,13 @@ public class RandomHelper {
     public static <T extends Enum<?>> T randomEnum(Class<T> clazz){
         int x = InfiniteFeatures.seededRandom.nextInt(clazz.getEnumConstants().length);
         return clazz.getEnumConstants()[x];
+    }
+
+    public static <T> T getRandomItem(List<T> list)
+    {
+        int listSize = list.size();
+        int randomIndex = InfiniteFeatures.seededRandom.nextInt(listSize);
+        return list.get(randomIndex);
     }
     
     public static double getRandomGaussianInRange(double mean, double standardDeviation, double min, double max){
