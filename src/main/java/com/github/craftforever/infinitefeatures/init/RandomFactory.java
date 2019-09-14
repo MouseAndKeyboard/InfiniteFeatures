@@ -50,19 +50,20 @@ public class RandomFactory {
     private static List<ISpecialEvent> GenerateAllPossibleEvents() {
         List<ISpecialEvent> allEvents = new ArrayList<ISpecialEvent>();
 
+        // the block will exhibit a potion effect with all of its stats fixed and the effect will proc every time
         allEvents.add(new ApplyPotionEffectRange(getRandomIntInRange(POT_ID_MIN, POT_ID_MAX),
                 getRandomIntInRange(POT_DURATION_MIN, POT_DURATION_MAX),
                 getRandomIntInRange(POT_LEVEL_MIN, POT_LEVEL_MAX), 
                 getRandomBoolean(POT_AMBIENT_PROBABILITY),
                 getRandomBoolean(POT_PARTICLES_PROBABILITY)));
-
+        // the block will exhibit a potion effect with all of its stats fixed and the effect will proc some of the time 
         allEvents.add(new ApplyPotionEffectRangeRandomly(getRandomIntInRange(POT_ID_MIN, POT_ID_MAX),
                 getRandomIntInRange(POT_DURATION_MIN, POT_DURATION_MAX),
                 getRandomIntInRange(POT_LEVEL_MIN, POT_LEVEL_MAX),
                 getRandomBoolean(POT_AMBIENT_PROBABILITY),
                 getRandomBoolean(POT_PARTICLES_PROBABILITY),
                 getRandomFloatInRange(POT_TRIGGER_PROBABILITY_MIN, POT_TRIGGER_PROBABILITY_MAX)));
-        
+        // the block will exhibit a potion effect with all of its stats randomised (different lengths, etc) and the effect will proc every time
         allEvents.add(new ApplyPotionEffectRange(
                 getRandomIntInRange(POT_ID_MIN, POT_ID_MAX), 
                 POT_DURATION_MIN, 
@@ -75,7 +76,7 @@ public class RandomFactory {
                 getRandomFloatInRange(0, POT_DURATION_MAX), 
                 getRandomBoolean(POT_AMBIENT_PROBABILITY),
                 getRandomBoolean(POT_PARTICLES_PROBABILITY)));
-
+        // the block will exhibit a potion effect with all of its stats randomised (different lengths, etc) and the effect will proc some of the time
         allEvents.add(new ApplyPotionEffectRangeRandomly(
             getRandomIntInRange(POT_ID_MIN, POT_ID_MAX), 
             POT_DURATION_MIN, 
