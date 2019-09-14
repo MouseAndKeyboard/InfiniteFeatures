@@ -2,11 +2,15 @@ package com.github.craftforever.infinitefeatures.init;
 
 import com.github.craftforever.infinitefeatures.InfiniteFeatures;
 import com.github.craftforever.infinitefeatures.blocks.RandomBlock;
-import com.github.craftforever.infinitefeatures.blocks.RandomBlock.SpecialEvent;
 import com.github.craftforever.infinitefeatures.blocks.RandomBlock.SpecialEventTrigger;
+import com.github.craftforever.infinitefeatures.blocks.specialevents.*;
 import com.github.craftforever.infinitefeatures.util.Mineral;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.awt.*;
 
 import static com.github.craftforever.infinitefeatures.helpers.RandomHelper.*;
@@ -73,9 +77,18 @@ public class RandomFactory {
         // TODO: pick a sound type randomly or based on something
         SoundType randomSoundType = SoundType.STONE;
         //...
-        SpecialEvent randomEvent = randomEnum(SpecialEvent.class);
 
+        // Initialize the mappings between event triggers and events
+        HashMap<SpecialEventTrigger, List<ISpecialEvent>> randomUniqueActions = new HashMap<SpecialEventTrigger, List<ISpecialEvent>>();
+        for (SpecialEventTrigger trigger : SpecialEventTrigger.values()){
+            List<ISpecialEvent> events = new ArrayList<ISpecialEvent>();
+            randomUniqueActions.put(trigger, events);
+        }
+
+        // Assign the TestEvent to a random trigger
         SpecialEventTrigger randomTrigger = randomEnum(SpecialEventTrigger.class);
+        ISpecialEvent test = new TestEvent();
+        randomUniqueActions.get(randomTrigger).add(test);
         
         RandomBlock randomBlock = new RandomBlock(
                 imineral,
@@ -86,8 +99,7 @@ public class RandomFactory {
         		randomHardness,
         		randomBlastResistance,
                 randomSoundType,
-                randomEvent,
-                randomTrigger);
+                randomUniqueActions);
         
         return randomBlock;
     }
