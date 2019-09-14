@@ -45,15 +45,54 @@ public class RandomFactory
     private static final int POT_LEVEL_MAX = 2;
     private static final float POT_AMBIENT_PROBABILITY = 0.2f;
     private static final float POT_PARTICLES_PROBABILITY = 0.9f;
+    private static final float POT_TRIGGER_PROBABILITY_MAX = 1f;
+    private static final float POT_TRIGGER_PROBABILITY_MIN = 0f;
 
     private static List<ISpecialEvent> GenerateAllPossibleEvents()
     {
         List<ISpecialEvent> allEvents = new ArrayList<ISpecialEvent>();
 
+        // the block will exhibit a potion effect with all of its stats fixed and the effect will proc every time
         allEvents.add(new ApplyPotionEffectRange(getRandomIntInRange(POT_ID_MIN, POT_ID_MAX),
                 getRandomIntInRange(POT_DURATION_MIN, POT_DURATION_MAX),
-                getRandomIntInRange(POT_LEVEL_MIN, POT_LEVEL_MAX), getRandomBoolean(POT_AMBIENT_PROBABILITY),
+                getRandomIntInRange(POT_LEVEL_MIN, POT_LEVEL_MAX), 
+                getRandomBoolean(POT_AMBIENT_PROBABILITY),
                 getRandomBoolean(POT_PARTICLES_PROBABILITY)));
+        // the block will exhibit a potion effect with all of its stats fixed and the effect will proc some of the time 
+        allEvents.add(new ApplyPotionEffectRangeRandomly(getRandomIntInRange(POT_ID_MIN, POT_ID_MAX),
+                getRandomIntInRange(POT_DURATION_MIN, POT_DURATION_MAX),
+                getRandomIntInRange(POT_LEVEL_MIN, POT_LEVEL_MAX),
+                getRandomBoolean(POT_AMBIENT_PROBABILITY),
+                getRandomBoolean(POT_PARTICLES_PROBABILITY),
+                getRandomFloatInRange(POT_TRIGGER_PROBABILITY_MIN, POT_TRIGGER_PROBABILITY_MAX)));
+        // the block will exhibit a potion effect with all of its stats randomised (different lengths, etc) and the effect will proc every time
+        allEvents.add(new ApplyPotionEffectRange(
+                getRandomIntInRange(POT_ID_MIN, POT_ID_MAX), 
+                POT_DURATION_MIN, 
+                POT_DURATION_MAX, 
+                getRandomFloatInRange(POT_DURATION_MIN, POT_DURATION_MAX), 
+                getRandomFloatInRange(0, POT_DURATION_MAX), 
+                POT_LEVEL_MIN, 
+                POT_LEVEL_MAX, 
+                getRandomFloatInRange(POT_LEVEL_MIN, POT_LEVEL_MAX), 
+                getRandomFloatInRange(0, POT_DURATION_MAX), 
+                getRandomBoolean(POT_AMBIENT_PROBABILITY),
+                getRandomBoolean(POT_PARTICLES_PROBABILITY)));
+        // the block will exhibit a potion effect with all of its stats randomised (different lengths, etc) and the effect will proc some of the time
+        allEvents.add(new ApplyPotionEffectRangeRandomly(
+            getRandomIntInRange(POT_ID_MIN, POT_ID_MAX), 
+            POT_DURATION_MIN, 
+            POT_DURATION_MAX, 
+            getRandomFloatInRange(POT_DURATION_MIN, POT_DURATION_MAX), 
+            getRandomFloatInRange(0, POT_DURATION_MAX), 
+            POT_LEVEL_MIN, 
+            POT_LEVEL_MAX, 
+            getRandomFloatInRange(POT_LEVEL_MIN, POT_LEVEL_MAX), 
+            getRandomFloatInRange(0, POT_DURATION_MAX), 
+            getRandomBoolean(POT_AMBIENT_PROBABILITY),
+            getRandomBoolean(POT_PARTICLES_PROBABILITY),
+            getRandomFloatInRange(POT_TRIGGER_PROBABILITY_MIN, POT_TRIGGER_PROBABILITY_MAX)));
+
         return allEvents;
     }
 
