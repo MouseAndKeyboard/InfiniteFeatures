@@ -96,7 +96,7 @@ public class RandomBlock extends Block implements IHasModel
 		SpecialEventTrigger triggerName = SpecialEventTrigger.ONREMOVEDBYPLAYER;
 		if (UniqueActions.containsKey(triggerName)) 
 		{
-			if(p_removedByPlayer_4_.capabilities.isCreativeMode) 
+			if(!p_removedByPlayer_4_.capabilities.isCreativeMode) 
 			{
 			invokeSpecialEvents(UniqueActions.get(triggerName), true, p_removedByPlayer_4_, p_removedByPlayer_4_);
 			}
@@ -122,7 +122,7 @@ public class RandomBlock extends Block implements IHasModel
 		SpecialEventTrigger triggerName = SpecialEventTrigger.ONACTIVATED;
 		if (UniqueActions.containsKey(triggerName)) 
 		{
-			if(p_onBlockActivated_4_.capabilities.isCreativeMode) 
+			if(!p_onBlockActivated_4_.capabilities.isCreativeMode) 
 			{
 			invokeSpecialEvents(UniqueActions.get(triggerName), true, p_onBlockActivated_4_, p_onBlockActivated_4_);
 			}
@@ -147,7 +147,7 @@ public class RandomBlock extends Block implements IHasModel
 		SpecialEventTrigger triggerName = SpecialEventTrigger.ONCLICKED;
 		if (UniqueActions.containsKey(triggerName)) 
 		{
-			if(p_onBlockClicked_3_.capabilities.isCreativeMode)
+			if(!p_onBlockClicked_3_.capabilities.isCreativeMode)
 		    {
 			invokeSpecialEvents(UniqueActions.get(triggerName), true, p_onBlockClicked_3_, p_onBlockClicked_3_);
 		    }
@@ -206,7 +206,7 @@ public class RandomBlock extends Block implements IHasModel
 		SpecialEventTrigger triggerName = SpecialEventTrigger.ONHARVESTED;
 		if (UniqueActions.containsKey(triggerName)) 
 		{
-			if(p_onBlockHarvested_4_.capabilities.isCreativeMode) 
+			if(!p_onBlockHarvested_4_.capabilities.isCreativeMode) 
 			{
 			invokeSpecialEvents(UniqueActions.get(triggerName), true, p_onBlockHarvested_4_, p_onBlockHarvested_4_);
 			}
