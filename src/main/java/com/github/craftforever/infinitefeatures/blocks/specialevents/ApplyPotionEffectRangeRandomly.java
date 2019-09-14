@@ -1,8 +1,9 @@
 
 package com.github.craftforever.infinitefeatures.blocks.specialevents;
 
-import com.github.craftforever.infinitefeatures.blocks.RandomIngotOre;
 import com.github.craftforever.infinitefeatures.helpers.*;
+
+import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 
@@ -28,7 +29,7 @@ public class ApplyPotionEffectRangeRandomly extends ApplyPotionEffectRange imple
     
 
     @Override
-    public void Execute(RandomIngotOre block, boolean livingEntity, Entity relatedEntity,
+    public void Execute(Block block, boolean livingEntity, Entity relatedEntity,
             EntityLivingBase relatedLivingEntity) {
         if (RandomHelper.getRandomBoolean(probability)) {
             super.Execute(block, livingEntity, relatedEntity, relatedLivingEntity);
