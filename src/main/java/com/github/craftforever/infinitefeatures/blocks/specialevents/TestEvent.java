@@ -10,7 +10,7 @@ public class TestEvent implements ISpecialEvent {
     @Override
     public void Execute(RandomBlock block, boolean livingEntity, Entity relatedEntity, EntityLivingBase relatedLivingEntity)
     {
-        block.setLightLevel(1f);
+    	block.setLightLevel(1f);
         
     }
 }

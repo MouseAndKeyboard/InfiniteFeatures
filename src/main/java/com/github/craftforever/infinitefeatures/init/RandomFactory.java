@@ -18,7 +18,8 @@ import static com.github.craftforever.infinitefeatures.helpers.RandomHelper.*;
 import static com.github.craftforever.infinitefeatures.helpers.RandomHelper.getRandomIntInRange;
 
 
-public class RandomFactory {
+public class RandomFactory 
+{
 
     private static final int RGB_MAX = 255;
 
@@ -46,7 +47,8 @@ public class RandomFactory {
     private static final float POT_AMBIENT_PROBABILITY = 0.2f;
     private static final float POT_PARTICLES_PROBABILITY = 0.9f;
 
-    private static List<ISpecialEvent> GenerateAllPossibleEvents(){
+    private static List<ISpecialEvent> GenerateAllPossibleEvents()
+    {
         List<ISpecialEvent> allEvents = new ArrayList<ISpecialEvent>();
 
         allEvents.add(new ApplyPotionEffectRange(
@@ -70,7 +72,8 @@ public class RandomFactory {
             // The ore will glow
             randomLightLevel = (float)getRandomIntInRange(LIGHTLEVEL_MIN,LIGHTLEVEL_MAX) / 15;
         }
-        else {
+        else 
+        {
             // The ore won't glow
             randomLightLevel = 0F;
         }
@@ -103,7 +106,8 @@ public class RandomFactory {
 
         // Initialize the mappings between event triggers and events
         HashMap<SpecialEventTrigger, List<ISpecialEvent>> randomUniqueActions = new HashMap<SpecialEventTrigger, List<ISpecialEvent>>();
-        for (SpecialEventTrigger trigger : SpecialEventTrigger.values()){
+        for (SpecialEventTrigger trigger : SpecialEventTrigger.values())
+        {
             List<ISpecialEvent> events = new ArrayList<ISpecialEvent>();
             randomUniqueActions.put(trigger, events);
         }
