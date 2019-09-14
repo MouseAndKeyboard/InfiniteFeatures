@@ -14,9 +14,9 @@ public class RecipeHandler
 {
 	public static void createFurnaceRecipes()
 	{
-		for (int i = 0; i < InfiniteFeatures.ORE_QTY; i++)
+		for (int i = 0; i < ModBlocks.ingotorecount; i++)
 		{
-			GameRegistry.addSmelting(Item.getItemFromBlock(ModBlocks.blockArray[i]), new ItemStack(ModItems.itemArray[i],1), 20);
+			GameRegistry.addSmelting(Item.getItemFromBlock(ModBlocks.ingotOreArray[i]), new ItemStack(ModItems.ingotArray[i],1), 20);
 		}
 		//GameRegistry.addSmelting(Item.getItemFromBlock(ModBlocks.RANDOM_BLOCK), new ItemStack(ModItems.RANDOM_INGOT1,1), 20);
 		//GameRegistry.addSmelting(Item.getItemFromBlock(ModBlocks.RANDOM_BLOCK2), new ItemStack(ModItems.RANDOM_INGOT2,1), 20);

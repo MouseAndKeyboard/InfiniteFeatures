@@ -10,11 +10,11 @@ public class RandomHelper
     public static int getRandomIntInRange(int min, int max) 
     {
 
-        if (min >= max) 
+        if (min > max) 
         {
             throw new IllegalArgumentException("max must be greater than min");
         }
-        return InfiniteFeatures.seededRandom.nextInt((max - min) + 1) + min;
+        return InfiniteFeatures.seededRandom.nextInt((max - min)+1) + min;
     }
 
     public static boolean getRandomBoolean(float probability) 
@@ -26,7 +26,7 @@ public class RandomHelper
     public static float getRandomFloatInRange(float min, float max) 
     {
 
-        if (min >= max) 
+        if (min > max) 
         {
             throw new IllegalArgumentException("max must be greater than min");
         }
