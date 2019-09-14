@@ -44,6 +44,8 @@ public class RandomFactory {
     private static final int POT_LEVEL_MAX = 2;
     private static final float POT_AMBIENT_PROBABILITY = 0.2f;
     private static final float POT_PARTICLES_PROBABILITY = 0.9f;
+    private static final float POT_TRIGGER_PROBABILITY_MAX = 1f;
+    private static final float POT_TRIGGER_PROBABILITY_MIN = 0f;
 
     private static List<ISpecialEvent> GenerateAllPossibleEvents() {
         List<ISpecialEvent> allEvents = new ArrayList<ISpecialEvent>();
@@ -52,6 +54,13 @@ public class RandomFactory {
                 getRandomIntInRange(POT_DURATION_MIN, POT_DURATION_MAX),
                 getRandomIntInRange(POT_LEVEL_MIN, POT_LEVEL_MAX), getRandomBoolean(POT_AMBIENT_PROBABILITY),
                 getRandomBoolean(POT_PARTICLES_PROBABILITY)));
+
+        allEvents.add(new ApplyPotionEffectRangeRandomly(getRandomIntInRange(POT_ID_MIN, POT_ID_MAX),
+                getRandomIntInRange(POT_DURATION_MIN, POT_DURATION_MAX),
+                getRandomIntInRange(POT_LEVEL_MIN, POT_LEVEL_MAX), getRandomBoolean(POT_AMBIENT_PROBABILITY),
+                getRandomBoolean(POT_PARTICLES_PROBABILITY),
+                getRandomFloatInRange(POT_TRIGGER_PROBABILITY_MIN, POT_TRIGGER_PROBABILITY_MAX)));
+        
         return allEvents;
     }
 
