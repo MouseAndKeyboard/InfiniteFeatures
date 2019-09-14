@@ -88,11 +88,23 @@ public class RandomGemOre extends Block implements IHasModel {
 		
 	}
 	@Override
-	public int quantityDropped(Random random) {
-		if(fortuneLvl > 0) {
-		return fortuneLvl + random.nextInt(1);
-		}
-		return 1;
+	public int quantityDroppedWithBonus(int fortune, Random random) 
+	{
+		if (fortune > 0 && Item.getItemFromBlock(this) != this.getItemDropped((IBlockState)this.getBlockState().getValidStates().iterator().next(), random, fortune))
+        {
+            int i = random.nextInt(fortune + 2) - 1;
+
+            if (i < 0)
+            {
+                i = 0;
+            }
+
+            return this.quantityDropped(random) * (i + 1);
+        }
+        else
+        {
+            return this.quantityDropped(random);
+        }
 	}
 	
 	// #region Potential function overrides
