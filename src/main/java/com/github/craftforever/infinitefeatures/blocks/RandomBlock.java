@@ -15,7 +15,6 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -97,7 +96,7 @@ public class RandomBlock extends Block implements IHasModel {
 			net.minecraft.world.Explosion p_onExplosionDestroy_3_) {
 		SpecialEventTrigger triggerName = SpecialEventTrigger.ONEXPLODEDESTROY;
 		if (UniqueActions.containsKey(triggerName)) {
-			invokeSpecialEvents(UniqueActions.get(triggerName), null);
+			invokeSpecialEvents(UniqueActions.get(triggerName), p_onExplosionDestroy_3_.getExplosivePlacedBy());
 		}
 	}
 
@@ -131,7 +130,7 @@ public class RandomBlock extends Block implements IHasModel {
 			net.minecraft.entity.player.EntityPlayer p_onBlockClicked_3_) {
 		SpecialEventTrigger triggerName = SpecialEventTrigger.ONCLICKED;
 		if (UniqueActions.containsKey(triggerName)) {
-			invokeSpecialEvents(UniqueActions.get(triggerName), );
+			invokeSpecialEvents(UniqueActions.get(triggerName), p_onBlockClicked_3_);
 		}
 	}
 
@@ -143,7 +142,7 @@ public class RandomBlock extends Block implements IHasModel {
 
 		SpecialEventTrigger triggerName = SpecialEventTrigger.ONCOLLIDED;
 		if (UniqueActions.containsKey(triggerName)) {
-			invokeSpecialEvents(UniqueActions.get(triggerName));
+			invokeSpecialEvents(UniqueActions.get(triggerName), p_onEntityCollision_4_);
 		}
 	}
 
@@ -155,7 +154,7 @@ public class RandomBlock extends Block implements IHasModel {
 			net.minecraft.item.ItemStack p_onBlockPlacedBy_5_) {
 		SpecialEventTrigger triggerName = SpecialEventTrigger.ONPLACED;
 		if (UniqueActions.containsKey(triggerName)) {
-			invokeSpecialEvents(UniqueActions.get(triggerName));
+			invokeSpecialEvents(UniqueActions.get(triggerName), p_onBlockPlacedBy_4_);
 		}
 	}
 
@@ -165,7 +164,7 @@ public class RandomBlock extends Block implements IHasModel {
 			float p_onFallenUpon_4_) {
 		SpecialEventTrigger triggerName = SpecialEventTrigger.ONFALLENON;
 		if (UniqueActions.containsKey(triggerName)) {
-			invokeSpecialEvents(UniqueActions.get(triggerName));
+			invokeSpecialEvents(UniqueActions.get(triggerName), p_onFallenUpon_3_);
 		}
 	}
 
@@ -174,7 +173,7 @@ public class RandomBlock extends Block implements IHasModel {
 		SpecialEventTrigger triggerName = SpecialEventTrigger.ONLANDED;
 		p_onLanded_2_.motionY = 0.0D;
 		if (UniqueActions.containsKey(triggerName)) {
-			invokeSpecialEvents(UniqueActions.get(triggerName));
+			invokeSpecialEvents(UniqueActions.get(triggerName), p_onLanded_2_);
 		}
 	}
 
@@ -185,7 +184,7 @@ public class RandomBlock extends Block implements IHasModel {
 			net.minecraft.entity.player.EntityPlayer p_onBlockHarvested_4_) {
 		SpecialEventTrigger triggerName = SpecialEventTrigger.ONHARVESTED;
 		if (UniqueActions.containsKey(triggerName)) {
-			invokeSpecialEvents(UniqueActions.get(triggerName));
+			invokeSpecialEvents(UniqueActions.get(triggerName), p_onBlockHarvested_4_);
 		}
 	}
 
@@ -195,7 +194,7 @@ public class RandomBlock extends Block implements IHasModel {
 
 		SpecialEventTrigger triggerName = SpecialEventTrigger.ONEXPLODED;
 		if (UniqueActions.containsKey(triggerName)) {
-			invokeSpecialEvents(UniqueActions.get(triggerName));
+			invokeSpecialEvents(UniqueActions.get(triggerName), p_onBlockExploded_3_.getExplosivePlacedBy());
 		}
 	}
 
@@ -205,7 +204,7 @@ public class RandomBlock extends Block implements IHasModel {
 			net.minecraft.util.math.BlockPos p_onPlantGrow_4_) {
 		SpecialEventTrigger triggerName = SpecialEventTrigger.ONPLANTGROW;
 		if (UniqueActions.containsKey(triggerName)) {
-			invokeSpecialEvents(UniqueActions.get(triggerName));
+			invokeSpecialEvents(UniqueActions.get(triggerName), null);
 		}
 	}
 
@@ -215,7 +214,7 @@ public class RandomBlock extends Block implements IHasModel {
 			net.minecraft.util.math.BlockPos p_onNeighborChange_3_) {
 		SpecialEventTrigger triggerName = SpecialEventTrigger.ONNEIGHBOURCHANGE;
 		if (UniqueActions.containsKey(triggerName)) {
-			invokeSpecialEvents(UniqueActions.get(triggerName));
+			invokeSpecialEvents(UniqueActions.get(triggerName), null);
 		}
 	}
 	// #endregion
