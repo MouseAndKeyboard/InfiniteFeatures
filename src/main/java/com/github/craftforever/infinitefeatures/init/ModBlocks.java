@@ -2,14 +2,19 @@ package com.github.craftforever.infinitefeatures.init;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.commons.lang3.ArrayUtils;
+
 import com.github.craftforever.infinitefeatures.InfiniteFeatures;
 import com.github.craftforever.infinitefeatures.blocks.BlockBase;
+import com.github.craftforever.infinitefeatures.helpers.RandomHelper;
 import com.github.craftforever.infinitefeatures.util.Mineral;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 
 public class ModBlocks
 {
+	
 	public static String[] textpartarray =
 		{	"pa","pe","pi","po","pu","ta","te","ti","to","tu","ga","ge","gi","go","gu","fa","fe",
 			"fi","fo","fu","ka","ke","ki","ko","ku","ha","he","hi",
@@ -24,7 +29,12 @@ public class ModBlocks
 	
 	public static final List<Block> BLOCKS = new ArrayList<Block>();
 	
-	public static final Block[] blockArray = generateblockarray();
+	public static int ingotorecount = RandomHelper.getRandomIntInRange(0,InfiniteFeatures.ORE_QTY-1);
+	public static int gemorecount = InfiniteFeatures.ORE_QTY - ingotorecount;
+	
+	public static final Block[] ingotOreArray = generateingotorearray();
+	public static final Block[] gemOreArray = generategemorearray();
+	public static final Block[] blockArray = ArrayUtils.addAll(ingotOreArray, gemOreArray);
 	
 	public static final Block[] ingotblockArray = generateingotblockarray();
 	//public static final Block RANDOM_BLOCK = new RandomBlock(minerals[0]).setCreativeTab(InfiniteFeatures.InfiniTab);
@@ -54,25 +64,6 @@ public class ModBlocks
 		}	
 	}
 	
-	public static Block[] generateblockarray()
-	{
-		if(InfiniteFeatures.continueRandomGeneration) 
-		{
-			Block[] blockarray = new Block[InfiniteFeatures.ORE_QTY];
-			for (int i = 0; i < InfiniteFeatures.ORE_QTY; i++) 
-			{
-				blockarray[i] = RandomFactory.randomBlockFactory(minerals[i]).setCreativeTab(InfiniteFeatures.InfiniTab);
-			}
-			return blockarray;
-		}
-		else 
-		{
-			Block[] blockarray = null;
-			return blockarray;
-		}
-		
-	}
-	
 	public static Block[] generateingotblockarray()
 	{
 		if(InfiniteFeatures.continueRandomGeneration) 
@@ -89,5 +80,43 @@ public class ModBlocks
 			Block[] ingotblockarray = null;
 			return ingotblockarray;
 		}
+	}
+	
+	public static Block[] generateingotorearray()
+	{
+		if(InfiniteFeatures.continueRandomGeneration) 
+		{
+			Block[] blockarray = new Block[ingotorecount];
+			for (int i = 0; i < ingotorecount; i++) 
+			{
+				blockarray[i] = RandomFactory.randomBlockFactory(minerals[i]).setCreativeTab(InfiniteFeatures.InfiniTab);
+			}
+			return blockarray;
+		}
+		else 
+		{
+			Block[] blockarray = null;
+			return blockarray;
+		}
+		
+	}
+	
+	public static Block[] generategemorearray()
+	{
+		if(InfiniteFeatures.continueRandomGeneration) 
+		{
+			Block[] blockarray = new Block[gemorecount];
+			for (int i = 0; i < gemorecount; i++) 
+			{
+				blockarray[i] = RandomFactory.randomBlockFactory(minerals[i+ingotorecount]).setCreativeTab(InfiniteFeatures.InfiniTab);
+			}
+			return blockarray;
+		}
+		else 
+		{
+			Block[] blockarray = null;
+			return blockarray;
+		}
+		
 	}
 }

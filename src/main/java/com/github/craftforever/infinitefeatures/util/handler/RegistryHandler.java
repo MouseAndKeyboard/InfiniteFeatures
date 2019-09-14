@@ -99,6 +99,7 @@ public class RegistryHandler
 			writer.write(langinput);
 			writer.flush();
 		}
+		
 		for(int i = 0; i < InfiniteFeatures.ORE_QTY; i++) 
 		{
 			Block block = ModBlocks.ingotblockArray[i];
@@ -109,9 +110,21 @@ public class RegistryHandler
 			writer.write(langinput);
 			writer.flush();
 		}
-		for(int i = 0; i < InfiniteFeatures.ORE_QTY; i++)
+		
+		for(int i = 0; i < ModBlocks.ingotorecount; i++)
 		{
-			Item item = ModItems.itemArray[i];
+			Item item = ModItems.ingotArray[i];
+			String itemName = item.getTranslationKey().substring(5);
+			itemName = itemName.replace("_", " ");
+			itemName = WordUtils.capitalize(itemName);
+			String langinput = item.getTranslationKey()+".name="+itemName+"\n";
+			writer.write(langinput);
+			writer.flush();
+		}
+		
+		for(int i = 0; i < ModBlocks.gemorecount; i++)
+		{
+			Item item = ModItems.gemArray[i];
 			String itemName = item.getTranslationKey().substring(5);
 			itemName = itemName.replace("_", " ");
 			itemName = WordUtils.capitalize(itemName);
@@ -172,16 +185,32 @@ public class RegistryHandler
 			Color color = ModBlocks.minerals[i].color;
 			dye(oreImg,color);
 			g.drawImage(oreImg, 0, 0, null);
-			stream = InfiniteFeatures.class.getClassLoader().getResourceAsStream("assets/infeatures/textures/item/ingot/generic.png");
-			BufferedImage ingotImg = ImageIO.read(stream);
-			dye(ingotImg,color);
-			stream = InfiniteFeatures.class.getClassLoader().getResourceAsStream("assets/infeatures/textures/block/storage/generic_iron_old.png");
-			BufferedImage ingotBlockImg = ImageIO.read(stream);
-			dye(ingotBlockImg,color);
-			ImageIO.write(ingotBlockImg, "PNG", new File("InfiniCraft/Resources/assets/infeatures/textures/blocks/"+ModBlocks.ingotblockArray[i].getTranslationKey().substring(5)+".png"));
-			ImageIO.write(ingotImg, "PNG", new File("InfiniCraft/Resources/assets/infeatures/textures/items/"+ModItems.itemArray[i].getTranslationKey().substring(5)+".png"));
 			ImageIO.write(finalImg, "PNG", new File("InfiniCraft/Resources/assets/infeatures/textures/blocks/"+ModBlocks.blockArray[i].getTranslationKey().substring(5)+".png"));
 			
+		}
+		for(int i = 0; i < ModBlocks.ingotorecount; i++)
+		{
+			InputStream stream = InfiniteFeatures.class.getClassLoader().getResourceAsStream("assets/infeatures/textures/item/ingot/generic.png");
+			BufferedImage ingotImg = ImageIO.read(stream);
+			stream = InfiniteFeatures.class.getClassLoader().getResourceAsStream("assets/infeatures/textures/block/storage/generic_iron_old.png");
+			BufferedImage ingotBlockImg = ImageIO.read(stream);
+			Color color = ModBlocks.minerals[i].color;
+			dye(ingotImg, color);
+			dye(ingotBlockImg,color);
+			ImageIO.write(ingotImg, "PNG", new File("InfiniCraft/Resources/assets/infeatures/textures/items/"+ModItems.ingotArray[i].getTranslationKey().substring(5)+".png"));
+			ImageIO.write(ingotBlockImg, "PNG", new File("InfiniCraft/Resources/assets/infeatures/textures/blocks/"+ModBlocks.ingotblockArray[i].getTranslationKey().substring(5)+".png"));
+		}
+		for(int i = 0; i < ModBlocks.gemorecount; i++)
+		{
+			InputStream stream = InfiniteFeatures.class.getClassLoader().getResourceAsStream("assets/infeatures/textures/item/gem/generic_diamond.png");
+			BufferedImage gemImg = ImageIO.read(stream);
+			stream = InfiniteFeatures.class.getClassLoader().getResourceAsStream("assets/infeatures/textures/block/storage/generic_diamond_old.png");
+			BufferedImage ingotBlockImg = ImageIO.read(stream);
+			Color color = ModBlocks.minerals[i+ModBlocks.ingotorecount].color;
+			dye(gemImg, color);
+			dye(ingotBlockImg,color);
+			ImageIO.write(gemImg, "PNG", new File("InfiniCraft/Resources/assets/infeatures/textures/items/"+ModItems.gemArray[i].getTranslationKey().substring(5)+".png"));
+			ImageIO.write(ingotBlockImg, "PNG", new File("InfiniCraft/Resources/assets/infeatures/textures/blocks/"+ModBlocks.ingotblockArray[i+ModBlocks.ingotorecount].getTranslationKey().substring(5)+".png"));
 		}
 	}
 	
