@@ -40,7 +40,7 @@ public class RandomHelper {
     }
     
     public static double getRandomGaussianInRange(double mean, double standardDeviation, double min, double max){
-        if (min >= max) {
+        if (min > max) {
             throw new IllegalArgumentException("max must be greater than min");
         }
 
