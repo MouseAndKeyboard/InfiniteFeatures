@@ -1,12 +1,14 @@
 package com.github.craftforever.infinitefeatures.blocks;
 
+import java.util.HashMap;
+import java.util.List;
+
 import com.github.craftforever.infinitefeatures.InfiniteFeatures;
+import com.github.craftforever.infinitefeatures.blocks.specialevents.ISpecialEvent;
 import com.github.craftforever.infinitefeatures.init.IHasModel;
 import com.github.craftforever.infinitefeatures.init.ModBlocks;
 import com.github.craftforever.infinitefeatures.init.ModItems;
 import com.github.craftforever.infinitefeatures.util.Mineral;
-
-import org.apache.commons.lang3.NotImplementedException;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
@@ -15,12 +17,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 
 public class RandomBlock extends Block implements IHasModel {
-	public enum SpecialEvent {
-		UNBREAKABLE, RANDOM_HARDNESS, CONSTANT_HARDNESS, RANDOM_HARVEST, CONSTANT_HARVEST, RANDOM_LIGHTLEVEL,
-		CONSTANT_LIGHTLEVEL, RANDOM_LIGHTOPACITY, CONSTANT_LIGHTOPACITY, RANDOM_EXPLOSION_RESIST,
-		CONSTANT_EXPLOSION_RESIST, EXPLODE
-	}
-
 	public enum SpecialEventTrigger {
 		ONDESTROY, ONEXPLODEDESTROY, ONACTIVATED, ONWALKEDON, ONCLICKED, ONCOLLIDED, ONPLACED, ONFALLENON, ONLANDED,
 		ONHARVESTED, ONEXPLODED, ONPLANTGROW, ONNEIGHBOURCHANGE
@@ -33,56 +29,15 @@ public class RandomBlock extends Block implements IHasModel {
 	public float lightlevel, hardness, resistance;
 	public int harvestLevel;
 	public SoundType sound;
-	public SpecialEvent uniqueAttribute;
-	public SpecialEventTrigger uniqueTrigger;
+	public HashMap<SpecialEventTrigger, List<ISpecialEvent>> UniqueActions;
 
-	private void invokeSpecialEvent(SpecialEvent whatHappens) {
-		switch (whatHappens) {
-			//TODO: write all the different things that the block can cause/do
-		case UNBREAKABLE:
-
-			break;
-		case RANDOM_HARDNESS:
-
-			break;
-		case CONSTANT_HARDNESS:
-
-			break;
-		case RANDOM_HARVEST:
-
-			break;
-		case CONSTANT_HARVEST:
-
-			break;
-		case RANDOM_LIGHTLEVEL:
-
-			break;
-		case CONSTANT_LIGHTLEVEL:
-
-			break;
-		case RANDOM_LIGHTOPACITY:
-
-			break;
-		case CONSTANT_LIGHTOPACITY:
-
-			break;
-		case RANDOM_EXPLOSION_RESIST:
-
-			break;
-		case CONSTANT_EXPLOSION_RESIST:
-
-			break;
-		case EXPLODE:
-
-			break;
-
-		default:
-			throw new NotImplementedException("Special event of block not identified");
-		}
+	private void invokeSpecialEvents(List<ISpecialEvent> events) {
+		events.forEach(event -> event.Execute(this));
 	}
 
 	public RandomBlock(Mineral imineral, Material imaterial, float ilightLevel, String itoolType, int iharvestLevel,
-			float ihardness, float iresistance, SoundType isound, SpecialEvent iuniqueAttribute, SpecialEventTrigger iuniqueTrigger) {
+			float ihardness, float iresistance, SoundType isound,
+			HashMap<SpecialEventTrigger, List<ISpecialEvent>> iuniqueActions) {
 		super(imaterial);
 		setTranslationKey(imineral.name + "_ore");
 		setRegistryName(imineral.name + "_ore");
@@ -95,8 +50,7 @@ public class RandomBlock extends Block implements IHasModel {
 		setHarvestLevel(itoolType, iharvestLevel);
 		setLightLevel(ilightLevel);
 
-		this.uniqueAttribute = iuniqueAttribute;
-		this.uniqueTrigger = iuniqueTrigger;
+		this.UniqueActions = iuniqueActions;
 		this.mineral = imineral;
 		this.toolType = itoolType;
 		this.material = imaterial;
@@ -112,8 +66,10 @@ public class RandomBlock extends Block implements IHasModel {
 	public void onPlayerDestroy(net.minecraft.world.World p_onPlayerDestroy_1_,
 			net.minecraft.util.math.BlockPos p_onPlayerDestroy_2_,
 			net.minecraft.block.state.IBlockState p_onPlayerDestroy_3_) {
-		if (uniqueTrigger == SpecialEventTrigger.ONDESTROY) {
-			invokeSpecialEvent(uniqueAttribute);
+		SpecialEventTrigger triggerName = SpecialEventTrigger.ONDESTROY;
+
+		if (UniqueActions.containsKey(triggerName)) {
+			invokeSpecialEvents(UniqueActions.get(triggerName));
 		}
 	}
 
@@ -121,8 +77,9 @@ public class RandomBlock extends Block implements IHasModel {
 	public void onExplosionDestroy(net.minecraft.world.World p_onExplosionDestroy_1_,
 			net.minecraft.util.math.BlockPos p_onExplosionDestroy_2_,
 			net.minecraft.world.Explosion p_onExplosionDestroy_3_) {
-		if (uniqueTrigger == SpecialEventTrigger.ONEXPLODEDESTROY) {
-			invokeSpecialEvent(uniqueAttribute);
+		SpecialEventTrigger triggerName = SpecialEventTrigger.ONEXPLODEDESTROY;
+		if (UniqueActions.containsKey(triggerName)) {
+			invokeSpecialEvents(UniqueActions.get(triggerName));
 		}
 	}
 
@@ -133,8 +90,9 @@ public class RandomBlock extends Block implements IHasModel {
 			net.minecraft.entity.player.EntityPlayer p_onBlockActivated_4_,
 			net.minecraft.util.EnumHand p_onBlockActivated_5_, net.minecraft.util.EnumFacing p_onBlockActivated_6_,
 			float p_onBlockActivated_7_, float p_onBlockActivated_8_, float p_onBlockActivated_9_) {
-		if (uniqueTrigger == SpecialEventTrigger.ONACTIVATED) {
-			invokeSpecialEvent(uniqueAttribute);
+		SpecialEventTrigger triggerName = SpecialEventTrigger.ONACTIVATED;
+		if (UniqueActions.containsKey(triggerName)) {
+			invokeSpecialEvents(UniqueActions.get(triggerName));
 		}
 		return false;
 	}
@@ -142,8 +100,10 @@ public class RandomBlock extends Block implements IHasModel {
 	@Override
 	public void onEntityWalk(net.minecraft.world.World p_onEntityWalk_1_,
 			net.minecraft.util.math.BlockPos p_onEntityWalk_2_, net.minecraft.entity.Entity p_onEntityWalk_3_) {
-		if (uniqueTrigger == SpecialEventTrigger.ONWALKEDON) {
-			invokeSpecialEvent(uniqueAttribute);
+
+		SpecialEventTrigger triggerName = SpecialEventTrigger.ONWALKEDON;
+		if (UniqueActions.containsKey(triggerName)) {
+			invokeSpecialEvents(UniqueActions.get(triggerName));
 		}
 	}
 
@@ -151,8 +111,9 @@ public class RandomBlock extends Block implements IHasModel {
 	public void onBlockClicked(net.minecraft.world.World p_onBlockClicked_1_,
 			net.minecraft.util.math.BlockPos p_onBlockClicked_2_,
 			net.minecraft.entity.player.EntityPlayer p_onBlockClicked_3_) {
-		if (uniqueTrigger == SpecialEventTrigger.ONCLICKED) {
-			invokeSpecialEvent(uniqueAttribute);
+		SpecialEventTrigger triggerName = SpecialEventTrigger.ONCLICKED;
+		if (UniqueActions.containsKey(triggerName)) {
+			invokeSpecialEvents(UniqueActions.get(triggerName));
 		}
 	}
 
@@ -161,8 +122,10 @@ public class RandomBlock extends Block implements IHasModel {
 			net.minecraft.util.math.BlockPos p_onEntityCollision_2_,
 			net.minecraft.block.state.IBlockState p_onEntityCollision_3_,
 			net.minecraft.entity.Entity p_onEntityCollision_4_) {
-		if (uniqueTrigger == SpecialEventTrigger.ONCOLLIDED) {
-			invokeSpecialEvent(uniqueAttribute);
+
+		SpecialEventTrigger triggerName = SpecialEventTrigger.ONCOLLIDED;
+		if (UniqueActions.containsKey(triggerName)) {
+			invokeSpecialEvents(UniqueActions.get(triggerName));
 		}
 	}
 
@@ -172,8 +135,9 @@ public class RandomBlock extends Block implements IHasModel {
 			net.minecraft.block.state.IBlockState p_onBlockPlacedBy_3_,
 			net.minecraft.entity.EntityLivingBase p_onBlockPlacedBy_4_,
 			net.minecraft.item.ItemStack p_onBlockPlacedBy_5_) {
-		if (uniqueTrigger == SpecialEventTrigger.ONPLACED) {
-			invokeSpecialEvent(uniqueAttribute);
+		SpecialEventTrigger triggerName = SpecialEventTrigger.ONPLACED;
+		if (UniqueActions.containsKey(triggerName)) {
+			invokeSpecialEvents(UniqueActions.get(triggerName));
 		}
 	}
 
@@ -181,15 +145,18 @@ public class RandomBlock extends Block implements IHasModel {
 	public void onFallenUpon(net.minecraft.world.World p_onFallenUpon_1_,
 			net.minecraft.util.math.BlockPos p_onFallenUpon_2_, net.minecraft.entity.Entity p_onFallenUpon_3_,
 			float p_onFallenUpon_4_) {
-		if (uniqueTrigger == SpecialEventTrigger.ONFALLENON) {
-			invokeSpecialEvent(uniqueAttribute);
+		SpecialEventTrigger triggerName = SpecialEventTrigger.ONFALLENON;
+		if (UniqueActions.containsKey(triggerName)) {
+			invokeSpecialEvents(UniqueActions.get(triggerName));
 		}
 	}
+
 	@Override
 	public void onLanded(net.minecraft.world.World p_onLanded_1_, net.minecraft.entity.Entity p_onLanded_2_) {
+		SpecialEventTrigger triggerName = SpecialEventTrigger.ONLANDED;
 		p_onLanded_2_.motionY = 0.0D;
-		if (uniqueTrigger == SpecialEventTrigger.ONLANDED) {
-			invokeSpecialEvent(uniqueAttribute);
+		if (UniqueActions.containsKey(triggerName)) {
+			invokeSpecialEvents(UniqueActions.get(triggerName));
 		}
 	}
 
@@ -198,16 +165,19 @@ public class RandomBlock extends Block implements IHasModel {
 			net.minecraft.util.math.BlockPos p_onBlockHarvested_2_,
 			net.minecraft.block.state.IBlockState p_onBlockHarvested_3_,
 			net.minecraft.entity.player.EntityPlayer p_onBlockHarvested_4_) {
-		if (uniqueTrigger == SpecialEventTrigger.ONHARVESTED) {
-			invokeSpecialEvent(uniqueAttribute);
+		SpecialEventTrigger triggerName = SpecialEventTrigger.ONHARVESTED;
+		if (UniqueActions.containsKey(triggerName)) {
+			invokeSpecialEvents(UniqueActions.get(triggerName));
 		}
 	}
 
 	@Override
 	public void onBlockExploded(net.minecraft.world.World p_onBlockExploded_1_,
 			net.minecraft.util.math.BlockPos p_onBlockExploded_2_, net.minecraft.world.Explosion p_onBlockExploded_3_) {
-		if (uniqueTrigger == SpecialEventTrigger.ONEXPLODED) {
-			invokeSpecialEvent(uniqueAttribute);
+
+		SpecialEventTrigger triggerName = SpecialEventTrigger.ONEXPLODED;
+		if (UniqueActions.containsKey(triggerName)) {
+			invokeSpecialEvents(UniqueActions.get(triggerName));
 		}
 	}
 
@@ -215,8 +185,9 @@ public class RandomBlock extends Block implements IHasModel {
 	public void onPlantGrow(net.minecraft.block.state.IBlockState p_onPlantGrow_1_,
 			net.minecraft.world.World p_onPlantGrow_2_, net.minecraft.util.math.BlockPos p_onPlantGrow_3_,
 			net.minecraft.util.math.BlockPos p_onPlantGrow_4_) {
-		if (uniqueTrigger == SpecialEventTrigger.ONPLANTGROW) {
-			invokeSpecialEvent(uniqueAttribute);
+		SpecialEventTrigger triggerName = SpecialEventTrigger.ONPLANTGROW;
+		if (UniqueActions.containsKey(triggerName)) {
+			invokeSpecialEvents(UniqueActions.get(triggerName));
 		}
 	}
 
@@ -224,8 +195,9 @@ public class RandomBlock extends Block implements IHasModel {
 	public void onNeighborChange(net.minecraft.world.IBlockAccess p_onNeighborChange_1_,
 			net.minecraft.util.math.BlockPos p_onNeighborChange_2_,
 			net.minecraft.util.math.BlockPos p_onNeighborChange_3_) {
-		if (uniqueTrigger == SpecialEventTrigger.ONNEIGHBOURCHANGE) {
-			invokeSpecialEvent(uniqueAttribute);
+		SpecialEventTrigger triggerName = SpecialEventTrigger.ONNEIGHBOURCHANGE;
+		if (UniqueActions.containsKey(triggerName)) {
+			invokeSpecialEvents(UniqueActions.get(triggerName));
 		}
 	}
 	// #endregion
