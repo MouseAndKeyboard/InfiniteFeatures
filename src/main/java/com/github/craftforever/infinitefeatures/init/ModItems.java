@@ -18,14 +18,17 @@ public class ModItems
 
 	private static Item[] generateitemarray()
 	{
-		if (InfiniteFeatures.continueRandomGeneration) {
+		if (InfiniteFeatures.continueRandomGeneration) 
+		{
 			Item[] itemarray = new Item[InfiniteFeatures.ORE_QTY];
 			for (int i = 0; i < InfiniteFeatures.ORE_QTY; i++)
 			{
 				itemarray[i] = new ItemIngotBase(ModBlocks.minerals[i].name+"_ingot").setCreativeTab(InfiniteFeatures.InfiniTab);
 			}
 			return itemarray;
-		}else {
+		}
+		else 
+		{
 			Item[] itemarray = null;
 			return itemarray;
 		}
