@@ -5,15 +5,16 @@ import com.github.craftforever.infinitefeatures.blocks.RandomBlock;
 import com.github.craftforever.infinitefeatures.helpers.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.potion.PotionEffect;
 public class ApplyPotionEffectRandomly extends ApplyPotionEffect implements ISpecialEvent {
 
-    private float probability;
+    protected float probability;
 
-    public ApplyPotionEffectRandomly(PotionEffect ieffect, float iprobability){
-        super(ieffect);
-        this.probability = iprobability;
+    public ApplyPotionEffectRandomly(int ipotionID, int idurationTicks, int iPotionLevel, boolean iisAmbient,
+            boolean ihasParticles, float iTriggerProbability) {
+        super(ipotionID, idurationTicks, iPotionLevel, iisAmbient, ihasParticles);
+        this.probability = iTriggerProbability;
     }
+
 
     @Override
     public void Execute(RandomBlock block, boolean livingEntity, Entity relatedEntity, EntityLivingBase relatedLivingEntity)
