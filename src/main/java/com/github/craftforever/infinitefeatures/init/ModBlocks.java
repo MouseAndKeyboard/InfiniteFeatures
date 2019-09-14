@@ -71,7 +71,7 @@ public class ModBlocks
 			Block[] ingotblockarray = new Block[InfiniteFeatures.ORE_QTY];
 			for (int i = 0; i < InfiniteFeatures.ORE_QTY; i++) 
 			{
-					ingotblockarray[i] = new BlockBase(minerals[i].name+"_block",Material.IRON).setCreativeTab(InfiniteFeatures.InfiniTab).setHardness(5).setResistance(30);
+					ingotblockarray[i] = new BlockBase(minerals[i].name+"_block", Material.IRON).setCreativeTab(InfiniteFeatures.InfiniTab).setHardness(5).setResistance(30);
 			}
 			return ingotblockarray;
 		}
@@ -89,7 +89,7 @@ public class ModBlocks
 			Block[] blockarray = new Block[ingotorecount];
 			for (int i = 0; i < ingotorecount; i++) 
 			{
-				blockarray[i] = RandomFactory.randomBlockFactory(minerals[i]).setCreativeTab(InfiniteFeatures.InfiniTab);
+				blockarray[i] = RandomFactory.randomIngotOreFactory(minerals[i]).setCreativeTab(InfiniteFeatures.InfiniTab);
 			}
 			return blockarray;
 		}
@@ -108,7 +108,7 @@ public class ModBlocks
 			Block[] blockarray = new Block[gemorecount];
 			for (int i = 0; i < gemorecount; i++) 
 			{
-				blockarray[i] = RandomFactory.randomBlockFactory(minerals[i+ingotorecount]).setCreativeTab(InfiniteFeatures.InfiniTab);
+				blockarray[i] = RandomFactory.randomGemOreFactory(minerals[i+ingotorecount],ModItems.gemArray[i]).setCreativeTab(InfiniteFeatures.InfiniTab);
 			}
 			return blockarray;
 		}

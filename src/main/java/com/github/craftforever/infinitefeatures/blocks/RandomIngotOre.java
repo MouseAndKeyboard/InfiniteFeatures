@@ -1,6 +1,7 @@
 package com.github.craftforever.infinitefeatures.blocks;
 
 import java.util.HashMap;
+
 import java.util.List;
 
 import com.github.craftforever.infinitefeatures.InfiniteFeatures;
@@ -27,7 +28,9 @@ import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class RandomBlock extends Block implements IHasModel 
+@SuppressWarnings("unlikely-arg-type")
+
+public class RandomIngotOre extends Block implements IHasModel 
 {
 	public enum SpecialEventTrigger 
 	{
@@ -42,16 +45,16 @@ public class RandomBlock extends Block implements IHasModel
 	public float lightlevel, hardness, resistance;
 	public int harvestLevel;
 	public SoundType sound;
-	public HashMap<SpecialEventTrigger, List<ISpecialEvent>> UniqueActions;
+	public HashMap<com.github.craftforever.infinitefeatures.blocks.RandomGemOre.SpecialEventTrigger, List<ISpecialEvent>> UniqueActions;
 
 	private void invokeSpecialEvents(List<ISpecialEvent> events, boolean hasLivingEntity, Entity relatedEntity, EntityLivingBase relatedLivingEntity) 
 	{
 		events.forEach(event -> event.Execute(this, hasLivingEntity, relatedEntity, relatedLivingEntity));
 	}
 
-	public RandomBlock(Mineral imineral, Material imaterial, float ilightLevel, String itoolType, int iharvestLevel,
+	public RandomIngotOre(Mineral imineral, Material imaterial, float ilightLevel, String itoolType, int iharvestLevel,
 			float ihardness, float iresistance, SoundType isound,
-			HashMap<SpecialEventTrigger, List<ISpecialEvent>> iuniqueActions) 
+			HashMap<com.github.craftforever.infinitefeatures.blocks.RandomGemOre.SpecialEventTrigger, List<ISpecialEvent>> randomUniqueActions) 
 	{
 		super(imaterial);
 		setTranslationKey(imineral.name + "_ore");
@@ -65,7 +68,7 @@ public class RandomBlock extends Block implements IHasModel
 		setHarvestLevel(itoolType, iharvestLevel);
 		setLightLevel(ilightLevel);
 
-		this.UniqueActions = iuniqueActions;
+		this.UniqueActions = randomUniqueActions;
 		this.mineral = imineral;
 		this.toolType = itoolType;
 		this.material = imaterial;
