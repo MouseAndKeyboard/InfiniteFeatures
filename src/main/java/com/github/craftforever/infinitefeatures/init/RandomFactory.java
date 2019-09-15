@@ -1,9 +1,7 @@
 package com.github.craftforever.infinitefeatures.init;
 
 import com.github.craftforever.infinitefeatures.InfiniteFeatures;
-import com.github.craftforever.infinitefeatures.blocks.RandomGemOre;
-import com.github.craftforever.infinitefeatures.blocks.RandomGemOre.SpecialEventTrigger;
-import com.github.craftforever.infinitefeatures.blocks.RandomIngotOre;
+import com.github.craftforever.infinitefeatures.blocks.RandomOre;
 import com.github.craftforever.infinitefeatures.blocks.specialevents.*;
 import com.github.craftforever.infinitefeatures.helpers.RandomHelper;
 import com.github.craftforever.infinitefeatures.util.Mineral;
@@ -98,67 +96,68 @@ public class RandomFactory
         return allEvents;
     }
 
-    public static RandomIngotOre randomIngotOreFactory(Mineral imineral) {
-        // TODO: randomly pick a material
-        Material randomMaterial = Material.ROCK;
-        // ...
+    // @Deprecated
+    // public static RandomIngotOre randomIngotOreFactory(Mineral imineral) {
+    //     // TODO: randomly pick a material
+    //     Material randomMaterial = Material.ROCK;
+    //     // ...
 
-        float randomLightLevel = 0F;
-        if (getRandomBoolean((float) LIGHTLEVEL_GLOW_PROBABILITY)) {
-            // The ore will glow
-            randomLightLevel = (float)getRandomIntInRange(LIGHTLEVEL_MIN,LIGHTLEVEL_MAX) / 15;
-        }
-        else 
-        {
-            // The ore won't glow
-            randomLightLevel = 0F;
-        }
+    //     float randomLightLevel = 0F;
+    //     if (getRandomBoolean((float) LIGHTLEVEL_GLOW_PROBABILITY)) {
+    //         // The ore will glow
+    //         randomLightLevel = (float)getRandomIntInRange(LIGHTLEVEL_MIN,LIGHTLEVEL_MAX) / 15;
+    //     }
+    //     else 
+    //     {
+    //         // The ore won't glow
+    //         randomLightLevel = 0F;
+    //     }
 
-        // TODO: pick tool type based off the base texture, (sand/dirt base textures
-        // probably makes sense to use a shovel)
-        // Depending on the direction/extent you want to take the randomisation this
-        // could be generated randomly although that would make for poor experiences
-        String randomToolType = "pickaxe";
-        // ...
+    //     // TODO: pick tool type based off the base texture, (sand/dirt base textures
+    //     // probably makes sense to use a shovel)
+    //     // Depending on the direction/extent you want to take the randomisation this
+    //     // could be generated randomly although that would make for poor experiences
+    //     String randomToolType = "pickaxe";
+    //     // ...
 
-        int randomHarvestLevel = getRandomIntInRange(HARVEST_LEVEL_MIN, HARVEST_LEVEL_MAX);
+    //     int randomHarvestLevel = getRandomIntInRange(HARVEST_LEVEL_MIN, HARVEST_LEVEL_MAX);
 
-        // How long it takes to mine
-        float randomHardness = (float) getRandomIntInRange(HARDNESS_MIN, HARDNESS_MAX);
+    //     // How long it takes to mine
+    //     float randomHardness = (float) getRandomIntInRange(HARDNESS_MIN, HARDNESS_MAX);
 
-        // Blast resistance
-        float randomBlastResistance = (float) getRandomGaussianInRange(BLAST_RESISTANCE_MEAN, BLAST_RESISTANCE_STD,
-                BLAST_RESISTANCE_MIN, BLAST_RESISTANCE_MAX);
+    //     // Blast resistance
+    //     float randomBlastResistance = (float) getRandomGaussianInRange(BLAST_RESISTANCE_MEAN, BLAST_RESISTANCE_STD,
+    //             BLAST_RESISTANCE_MIN, BLAST_RESISTANCE_MAX);
 
-        // TODO: pick a sound type randomly or based on something
-        SoundType randomSoundType = SoundType.STONE;
-        // ...
+    //     // TODO: pick a sound type randomly or based on something
+    //     SoundType randomSoundType = SoundType.STONE;
+    //     // ...
 
-        // Initialize the mappings between event triggers and events
-        HashMap<SpecialEventTrigger, List<ISpecialEvent>> randomUniqueActions = new HashMap<SpecialEventTrigger, List<ISpecialEvent>>();
+    //     // Initialize the mappings between event triggers and events
+    //     HashMap<SpecialEventTrigger, List<ISpecialEvent>> randomUniqueActions = new HashMap<SpecialEventTrigger, List<ISpecialEvent>>();
 
-        for (SpecialEventTrigger trigger : SpecialEventTrigger.values())
-        {
-            List<ISpecialEvent> events = new ArrayList<ISpecialEvent>();
-            randomUniqueActions.put(trigger, events);
-        }
+    //     for (SpecialEventTrigger trigger : SpecialEventTrigger.values())
+    //     {
+    //         List<ISpecialEvent> events = new ArrayList<ISpecialEvent>();
+    //         randomUniqueActions.put(trigger, events);
+    //     }
 
-        // Assign the TestEvent to a random trigger
-        SpecialEventTrigger randomTrigger = randomEnum(SpecialEventTrigger.class);
+    //     // Assign the TestEvent to a random trigger
+    //     SpecialEventTrigger randomTrigger = randomEnum(SpecialEventTrigger.class);
 
-        List<ISpecialEvent> allPossibleEvents = GenerateAllPossibleEvents();
+    //     List<ISpecialEvent> allPossibleEvents = GenerateAllPossibleEvents();
 
-        ISpecialEvent selectedEvent = RandomHelper.getRandomItem(allPossibleEvents);
+    //     ISpecialEvent selectedEvent = RandomHelper.getRandomItem(allPossibleEvents);
 
-        randomUniqueActions.get(randomTrigger).add(selectedEvent);
+    //     randomUniqueActions.get(randomTrigger).add(selectedEvent);
 
-        RandomIngotOre randomBlock = new RandomIngotOre(imineral, randomMaterial, randomLightLevel, randomToolType,
-                randomHarvestLevel, randomHardness, randomBlastResistance, randomSoundType, randomUniqueActions);
+    //     RandomIngotOre randomBlock = new RandomIngotOre(imineral, randomMaterial, randomLightLevel, randomToolType,
+    //             randomHarvestLevel, randomHardness, randomBlastResistance, randomSoundType, randomUniqueActions);
 
-        return randomBlock;
-    }
+    //     return randomBlock;
+    // }
     
-    public static RandomGemOre randomGemOreFactory(Mineral imineral,Item iitem) {
+    public static RandomOre randomOreFactory(Mineral imineral, Item iitem, boolean iisGem) {
         // TODO: randomly pick a material
         Material randomMaterial = Material.ROCK;
         // ...
@@ -195,16 +194,16 @@ public class RandomFactory
         // ...
 
         // Initialize the mappings between event triggers and events
-        HashMap<com.github.craftforever.infinitefeatures.blocks.RandomGemOre.SpecialEventTrigger, List<ISpecialEvent>> randomUniqueActions = new HashMap<SpecialEventTrigger, List<ISpecialEvent>>();
+        HashMap<RandomOre.SpecialEventTrigger, List<ISpecialEvent>> randomUniqueActions = new HashMap<RandomOre.SpecialEventTrigger, List<ISpecialEvent>>();
 
-        for (com.github.craftforever.infinitefeatures.blocks.RandomGemOre.SpecialEventTrigger trigger : SpecialEventTrigger.values())
+        for (RandomOre.SpecialEventTrigger trigger : RandomOre.SpecialEventTrigger.values())
         {
             List<ISpecialEvent> events = new ArrayList<ISpecialEvent>();
             randomUniqueActions.put(trigger, events);
         }
 
         // Assign the TestEvent to a random trigger
-        SpecialEventTrigger randomTrigger = randomEnum(SpecialEventTrigger.class);
+        RandomOre.SpecialEventTrigger randomTrigger = randomEnum(RandomOre.SpecialEventTrigger.class);
 
         List<ISpecialEvent> allPossibleEvents = GenerateAllPossibleEvents();
 
@@ -212,8 +211,7 @@ public class RandomFactory
 
         randomUniqueActions.get(randomTrigger).add(selectedEvent);
 
-        RandomGemOre randomBlock = new RandomGemOre(imineral, randomMaterial, randomLightLevel, randomToolType,
-                randomHarvestLevel, randomHardness, randomBlastResistance, randomSoundType, randomUniqueActions, iitem);
+        RandomOre randomBlock = new RandomOre(imineral, randomMaterial, randomLightLevel, randomToolType, randomHarvestLevel, randomHardness, randomBlastResistance, randomSoundType, randomUniqueActions, iisGem, iitem);
 
         return randomBlock;
     }
